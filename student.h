@@ -2,6 +2,7 @@
 #define EX3_STUDENT_H
 
 #include "set.h"
+#include "mtm_ex3.h"
 
 typedef struct student_t *Student;
 
@@ -54,14 +55,23 @@ Student studentCopy(Student student);
 int studentCompare(Student student1, Student student2);
 
 /**
- * getStudentFromSet - return the student pointer of the student with given id from given set.
+ * getStudentFromSet - return the student object of the student with given id from given set.
  * @param set - the set to search the student in
  * @param id - the id of the student to search
  * @return
- * pointer to the student with the given id (if found).
- * if the student does not found, returns NULL
+ * the student with the given id (if found).
+ * if the student is NULL, returns NULL
  */
 Student getStudentFromSet(Set set, int id);
+
+/**
+ * studentGetStudentFriends - return set of ids of the student's friends.
+ * @param student - the to search for his friends
+ * @return
+ * set of ids of the student's friends.
+ * if the student does not found, returns NULL
+ */
+Set studentGetStudentFriends(Student student);
 
 /**
  * addFriendRequest - add friend request from student to friend
@@ -186,6 +196,72 @@ StudentResult studentAddGrade(Student student, int semester, int course_id, char
  * STUDENT_OK - otherwise
  */
 StudentResult studentRemoveGrade(Student student, int semester, int course_id);
+
+/**
+ * studentUpdateGrade - updates the grade for the given student in the last semester he have grade for the course with
+ * the given course id.
+ * @param student - the student to update the grade for
+ * @param course_id - the id of the course the grade to update is attached to
+ * @param new_grade - the new grade for the course (must be integer between 0 and 100)
+ * @return
+ * STUDENT_OUT_OF_MEMORY - if there was a memory error
+ * STUDENT_COURSE_DOES_NOT_EXIST -if there are no grades for the given student in the given course at the given semester
+ * STUDENT_INVALID_PARAMETER - if the new_grade is not valid
+ * STUDENT_OK - otherwise
+ */
+StudentResult studentUpdateGrade(Student student, int course_id, int new_grade);
+
+/**
+ * studentPrintFullReport - prints full grades report of the student into the given outpt channel
+ * @param student - the student to print his report
+ * @param output_channel - the channel to print the report to
+ * @return
+ * STUDENT_OUT_OF_MEMORY - if there was a memory error
+ */
+StudentResult studentPrintFullReport(Student student, FILE* output_channel);
+
+/**
+ * studentPrintCleanReport - prints grades report of the given student containing the effective grades of all the
+ * student's courses, sorted by course id (and also by semester number for sport courses with the same id).
+ * the print will be to the given output channel.
+ * @param student - the student to print his report
+ * @param output_channel - the channel to print the report to
+ * @return
+ * STUDENT_OUT_OF_MEMORY - if there was a memory error
+ * STUDENT_OK - otherwise
+ */
+StudentResult studentPrintCleanReport(Student student, FILE* output_channel);
+
+/**
+ * studentPrintBestOrWorstGrades - prints the best/worst (according to the parameter given) effective sheet grades of
+ * the given student. the amount of grades printed is given (must be positive number)
+ * @param student - the student to print his grades
+ * @param amount - the number of grades to print (must be positive number)
+ * @param best - true to print the best grades and false to print the worst grades
+ * @param output_channel - the channel to print the report to
+ * @return
+ * STUDENT_OUT_OF_MEMORY - if there was a memory error
+ * STUDENT_INVALID_PARAMETER - if amount is not valid
+ * STUDENT_OK - otherwise
+ */
+StudentResult studentPrintBestOrWorstGrades(Student student, int amount, bool best, FILE* output_channel);
+
+/**
+ * studentGetBestGradeInCourse - search for the best grade in all semesters in the course with the given id that the
+ * given student have. if the student is NULL or do not have any grade for the course with the given id - return -1.
+ * @param student - the student to search his best grade
+ * @param course_id - the id of the course to search
+ * @return
+ * the best grade of the given student in the given course. -1 if not found.
+ */
+int studentGetBestGradeInCourse(Student student, int course_id);
+
+/**
+ * studentPrintName - prints the name of the student
+ * @param student - the student to print his name
+ * @param output_channel - the channel to print the report to
+ */
+void studentPrintName(Student student, FILE* output_channel);
 
 /**
  * studentDestroy - deallocate all the data of the student

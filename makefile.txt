@@ -1,0 +1,10 @@
+CC = gcc
+OBJS = a.o b.o c.o
+EXEC = prog
+DEBUG_FLAG =
+COMP_FLAG = -std=c99 -Wall -Werror
+
+$(EXEC) : $(OBJS)
+	$(CC) $(DEBUG_FLAG) $(OBJS) -o $@
+a.o: a.c a.h b.h
+	$(CC) -c $(DEBUG_FLAG) $(OBJS) $*.c

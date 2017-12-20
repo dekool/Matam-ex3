@@ -2,8 +2,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/ex3.dir/main.c.obj"
   "CMakeFiles/ex3.dir/student.c.obj"
   "CMakeFiles/ex3.dir/course_manager.c.obj"
-  "CMakeFiles/ex3.dir/course.c.obj"
-  "CMakeFiles/ex3.dir/semester_grade.c.obj"
   "CMakeFiles/ex3.dir/semester.c.obj"
   "CMakeFiles/ex3.dir/grade.c.obj"
   "ex3.pdb"

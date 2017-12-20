@@ -128,57 +128,9 @@ CMakeFiles/ex3.dir/course_manager.c.obj.provides: CMakeFiles/ex3.dir/course_mana
 CMakeFiles/ex3.dir/course_manager.c.obj.provides.build: CMakeFiles/ex3.dir/course_manager.c.obj
 
 
-CMakeFiles/ex3.dir/course.c.obj: CMakeFiles/ex3.dir/flags.make
-CMakeFiles/ex3.dir/course.c.obj: ../course.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Dekel\Documents\mtm\ex3\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/ex3.dir/course.c.obj"
-	C:\univercity\TDM-GCC-64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\ex3.dir\course.c.obj   -c C:\Users\Dekel\Documents\mtm\ex3\course.c
-
-CMakeFiles/ex3.dir/course.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ex3.dir/course.c.i"
-	C:\univercity\TDM-GCC-64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\Dekel\Documents\mtm\ex3\course.c > CMakeFiles\ex3.dir\course.c.i
-
-CMakeFiles/ex3.dir/course.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ex3.dir/course.c.s"
-	C:\univercity\TDM-GCC-64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\Dekel\Documents\mtm\ex3\course.c -o CMakeFiles\ex3.dir\course.c.s
-
-CMakeFiles/ex3.dir/course.c.obj.requires:
-
-.PHONY : CMakeFiles/ex3.dir/course.c.obj.requires
-
-CMakeFiles/ex3.dir/course.c.obj.provides: CMakeFiles/ex3.dir/course.c.obj.requires
-	$(MAKE) -f CMakeFiles\ex3.dir\build.make CMakeFiles/ex3.dir/course.c.obj.provides.build
-.PHONY : CMakeFiles/ex3.dir/course.c.obj.provides
-
-CMakeFiles/ex3.dir/course.c.obj.provides.build: CMakeFiles/ex3.dir/course.c.obj
-
-
-CMakeFiles/ex3.dir/semester_grade.c.obj: CMakeFiles/ex3.dir/flags.make
-CMakeFiles/ex3.dir/semester_grade.c.obj: ../semester_grade.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Dekel\Documents\mtm\ex3\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/ex3.dir/semester_grade.c.obj"
-	C:\univercity\TDM-GCC-64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\ex3.dir\semester_grade.c.obj   -c C:\Users\Dekel\Documents\mtm\ex3\semester_grade.c
-
-CMakeFiles/ex3.dir/semester_grade.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ex3.dir/semester_grade.c.i"
-	C:\univercity\TDM-GCC-64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\Dekel\Documents\mtm\ex3\semester_grade.c > CMakeFiles\ex3.dir\semester_grade.c.i
-
-CMakeFiles/ex3.dir/semester_grade.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ex3.dir/semester_grade.c.s"
-	C:\univercity\TDM-GCC-64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\Dekel\Documents\mtm\ex3\semester_grade.c -o CMakeFiles\ex3.dir\semester_grade.c.s
-
-CMakeFiles/ex3.dir/semester_grade.c.obj.requires:
-
-.PHONY : CMakeFiles/ex3.dir/semester_grade.c.obj.requires
-
-CMakeFiles/ex3.dir/semester_grade.c.obj.provides: CMakeFiles/ex3.dir/semester_grade.c.obj.requires
-	$(MAKE) -f CMakeFiles\ex3.dir\build.make CMakeFiles/ex3.dir/semester_grade.c.obj.provides.build
-.PHONY : CMakeFiles/ex3.dir/semester_grade.c.obj.provides
-
-CMakeFiles/ex3.dir/semester_grade.c.obj.provides.build: CMakeFiles/ex3.dir/semester_grade.c.obj
-
-
 CMakeFiles/ex3.dir/semester.c.obj: CMakeFiles/ex3.dir/flags.make
 CMakeFiles/ex3.dir/semester.c.obj: ../semester.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Dekel\Documents\mtm\ex3\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/ex3.dir/semester.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Dekel\Documents\mtm\ex3\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/ex3.dir/semester.c.obj"
 	C:\univercity\TDM-GCC-64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\ex3.dir\semester.c.obj   -c C:\Users\Dekel\Documents\mtm\ex3\semester.c
 
 CMakeFiles/ex3.dir/semester.c.i: cmake_force
@@ -202,7 +154,7 @@ CMakeFiles/ex3.dir/semester.c.obj.provides.build: CMakeFiles/ex3.dir/semester.c.
 
 CMakeFiles/ex3.dir/grade.c.obj: CMakeFiles/ex3.dir/flags.make
 CMakeFiles/ex3.dir/grade.c.obj: ../grade.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Dekel\Documents\mtm\ex3\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/ex3.dir/grade.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Dekel\Documents\mtm\ex3\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/ex3.dir/grade.c.obj"
 	C:\univercity\TDM-GCC-64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\ex3.dir\grade.c.obj   -c C:\Users\Dekel\Documents\mtm\ex3\grade.c
 
 CMakeFiles/ex3.dir/grade.c.i: cmake_force
@@ -229,8 +181,6 @@ ex3_OBJECTS = \
 "CMakeFiles/ex3.dir/main.c.obj" \
 "CMakeFiles/ex3.dir/student.c.obj" \
 "CMakeFiles/ex3.dir/course_manager.c.obj" \
-"CMakeFiles/ex3.dir/course.c.obj" \
-"CMakeFiles/ex3.dir/semester_grade.c.obj" \
 "CMakeFiles/ex3.dir/semester.c.obj" \
 "CMakeFiles/ex3.dir/grade.c.obj"
 
@@ -240,15 +190,14 @@ ex3_EXTERNAL_OBJECTS =
 ex3.exe: CMakeFiles/ex3.dir/main.c.obj
 ex3.exe: CMakeFiles/ex3.dir/student.c.obj
 ex3.exe: CMakeFiles/ex3.dir/course_manager.c.obj
-ex3.exe: CMakeFiles/ex3.dir/course.c.obj
-ex3.exe: CMakeFiles/ex3.dir/semester_grade.c.obj
 ex3.exe: CMakeFiles/ex3.dir/semester.c.obj
 ex3.exe: CMakeFiles/ex3.dir/grade.c.obj
 ex3.exe: CMakeFiles/ex3.dir/build.make
+ex3.exe: ../libmtm.a
 ex3.exe: CMakeFiles/ex3.dir/linklibs.rsp
 ex3.exe: CMakeFiles/ex3.dir/objects1.rsp
 ex3.exe: CMakeFiles/ex3.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\Dekel\Documents\mtm\ex3\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking C executable ex3.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\Dekel\Documents\mtm\ex3\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking C executable ex3.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\ex3.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -259,8 +208,6 @@ CMakeFiles/ex3.dir/build: ex3.exe
 CMakeFiles/ex3.dir/requires: CMakeFiles/ex3.dir/main.c.obj.requires
 CMakeFiles/ex3.dir/requires: CMakeFiles/ex3.dir/student.c.obj.requires
 CMakeFiles/ex3.dir/requires: CMakeFiles/ex3.dir/course_manager.c.obj.requires
-CMakeFiles/ex3.dir/requires: CMakeFiles/ex3.dir/course.c.obj.requires
-CMakeFiles/ex3.dir/requires: CMakeFiles/ex3.dir/semester_grade.c.obj.requires
 CMakeFiles/ex3.dir/requires: CMakeFiles/ex3.dir/semester.c.obj.requires
 CMakeFiles/ex3.dir/requires: CMakeFiles/ex3.dir/grade.c.obj.requires
 

@@ -4,12 +4,10 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "C:/Users/Dekel/Documents/mtm/ex3/course.c" "C:/Users/Dekel/Documents/mtm/ex3/cmake-build-debug/CMakeFiles/ex3.dir/course.c.obj"
   "C:/Users/Dekel/Documents/mtm/ex3/course_manager.c" "C:/Users/Dekel/Documents/mtm/ex3/cmake-build-debug/CMakeFiles/ex3.dir/course_manager.c.obj"
   "C:/Users/Dekel/Documents/mtm/ex3/grade.c" "C:/Users/Dekel/Documents/mtm/ex3/cmake-build-debug/CMakeFiles/ex3.dir/grade.c.obj"
   "C:/Users/Dekel/Documents/mtm/ex3/main.c" "C:/Users/Dekel/Documents/mtm/ex3/cmake-build-debug/CMakeFiles/ex3.dir/main.c.obj"
   "C:/Users/Dekel/Documents/mtm/ex3/semester.c" "C:/Users/Dekel/Documents/mtm/ex3/cmake-build-debug/CMakeFiles/ex3.dir/semester.c.obj"
-  "C:/Users/Dekel/Documents/mtm/ex3/semester_grade.c" "C:/Users/Dekel/Documents/mtm/ex3/cmake-build-debug/CMakeFiles/ex3.dir/semester_grade.c.obj"
   "C:/Users/Dekel/Documents/mtm/ex3/student.c" "C:/Users/Dekel/Documents/mtm/ex3/cmake-build-debug/CMakeFiles/ex3.dir/student.c.obj"
   )
 set(CMAKE_C_COMPILER_ID "GNU")

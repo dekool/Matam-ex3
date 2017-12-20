@@ -1,6 +1,14 @@
 #include "course_manager.h"
 #include <stdlib.h>
 #include "string.h"
+#include "assert.h"
+
+const char * available_requests[] = {
+        "cancel_course",
+        "register_course",
+        "remove_course",
+};
+const char* faculty_response = "your request was rejected";
 
 typedef struct course_manager_t
 {
@@ -29,7 +37,7 @@ CourseManager courseManagerCreate() {
 /**
 /**
  * addStudent - adds new student to the system
- * @param courseManager - the course manager to add the student to
+ * @param course_manager - the course manager to add the student to
  * @param id - the id number of the student
  * @param firstName - the student's first name
  * @param lastName - the student's last name
@@ -38,8 +46,8 @@ CourseManager courseManagerCreate() {
  * MTM_INVALID_PARAMETERS - if the id entered is invalid (number is higher than 999999999 or negative)
  * MTM_OUT_OF_MEMORY - if there was a memory error
  */
-MtmErrorCode addStudent(CourseManager courseManager, int id, char* firstName, char* lastName) {
-    if (firstName == NULL || lastName == NULL || courseManager == NULL || courseManager->students == NULL) {
+MtmErrorCode addStudent(CourseManager course_manager, int id, char* firstName, char* lastName) {
+    if (firstName == NULL || lastName == NULL || course_manager == NULL || course_manager->students == NULL) {
         return MTM_OUT_OF_MEMORY;
     }
     Student student = NULL;
@@ -49,7 +57,7 @@ MtmErrorCode addStudent(CourseManager courseManager, int id, char* firstName, ch
         studentDestroy(student);
         return MTM_INVALID_PARAMETERS;
     }
-    SetResult add_result = setAdd(courseManager->students, (SetElement)student);
+    SetResult add_result = setAdd(course_manager->students, (SetElement)student);
     studentDestroy(student);
     switch(add_result) {
         case SET_ITEM_ALREADY_EXISTS:
@@ -65,66 +73,66 @@ MtmErrorCode addStudent(CourseManager courseManager, int id, char* firstName, ch
 
 /**
  * removeStudent - removes the student with the given id from the system
- * @param courseManager - the course manager to remove the student from
+ * @param course_manager - the course manager to remove the student from
  * @param id  - the id of the student to be removed
  * @return
  * MTM_STUDENT_DOES_NOT_EXIST - if student with given id does not exist in the system
  */
-MtmErrorCode removeStudent(CourseManager  courseManager, int id) {
-    if (courseManager == NULL || courseManager->students == NULL) {
+MtmErrorCode removeStudent(CourseManager  course_manager, int id) {
+    if (course_manager == NULL || course_manager->students == NULL) {
         return MTM_OUT_OF_MEMORY;
     }
-    Student student = getStudentFromSet(courseManager->students, id);
+    Student student = getStudentFromSet(course_manager->students, id);
     if (student == NULL) {
         return MTM_STUDENT_DOES_NOT_EXIST;
     }
-    removeStudentFromFriendsSet(courseManager->students, student);
-    if (courseManager->logged_student != NULL && studentCompare(courseManager->logged_student, student) == 0) {
-        logOutStudent(courseManager);
+    removeStudentFromFriendsSet(course_manager->students, student);
+    if (course_manager->logged_student != NULL && studentCompare(course_manager->logged_student, student) == 0) {
+        logOutStudent(course_manager);
     }
-    SetResult removeResult = setRemove(courseManager->students, student);
+    SetResult removeResult = setRemove(course_manager->students, student);
     if (removeResult == SET_ITEM_DOES_NOT_EXIST) return MTM_STUDENT_DOES_NOT_EXIST;
 }
 
 /**
  * logInStudent - log in student with the given id
- * @param courseManager - the course manager that the student is logging in to
+ * @param course_manager - the course manager that the student is logging in to
  * @param id - the id of the student who log in
  * @return
  * MTM_ALREADY_LOGGED_IN - if a student is already logged in to the system
  * MTM_STUDENT_DOES_NOT_EXIST - if student with given id does not exist in the system
  */
-MtmErrorCode logInStudent(CourseManager courseManager, int id) {
-    if (courseManager == NULL || courseManager->students == NULL) {
+MtmErrorCode logInStudent(CourseManager course_manager, int id) {
+    if (course_manager == NULL || course_manager->students == NULL) {
         return MTM_OUT_OF_MEMORY;
     }
-    if (courseManager->logged_student != NULL) return MTM_ALREADY_LOGGED_IN;
-    Student student = getStudentFromSet(courseManager->students, id);
+    if (course_manager->logged_student != NULL) return MTM_ALREADY_LOGGED_IN;
+    Student student = getStudentFromSet(course_manager->students, id);
     if (student == NULL) {
         return MTM_STUDENT_DOES_NOT_EXIST;
     }
-    courseManager->logged_student = student;
+    course_manager->logged_student = student;
 }
 
 /**
  * logOutStudent - log out the logged student
- * @param courseManager - the course manager that the student is logging in to
+ * @param course_manager - the course manager that the student is logging in to
  * @return
  * MTM_NOT_LOGGED_IN - if no student is logged in to the system
  */
-MtmErrorCode logOutStudent(CourseManager courseManager) {
-    if (courseManager == NULL) {
+MtmErrorCode logOutStudent(CourseManager course_manager) {
+    if (course_manager == NULL) {
         return MTM_OUT_OF_MEMORY;
     }
-    if (courseManager->logged_student == NULL) {
+    if (course_manager->logged_student == NULL) {
         return MTM_NOT_LOGGED_IN;
     }
-    courseManager->logged_student = NULL;
+    course_manager->logged_student = NULL;
 }
 
 /**
  * sendFriendRequest - send friend request from the logged student to the student with the given id
- * @param courseManager - the course manager that the student is logging in to
+ * @param course_manager - the course manager that the student is logging in to
  * @param id - the id of the student to send friend request to
  * @return
  * MTM_NOT_LOGGED_IN - if no student is logged in to the system
@@ -134,18 +142,18 @@ MtmErrorCode logOutStudent(CourseManager courseManager) {
  * MTM_ALREADY_REQUESTED - if their is already a pending friend request from the logged student to the
  * student with the given id
  */
-MtmErrorCode sendFriendRequest(CourseManager courseManager, int id) {
-    if (courseManager == NULL || courseManager->students == NULL) {
+MtmErrorCode sendFriendRequest(CourseManager course_manager, int id) {
+    if (course_manager == NULL || course_manager->students == NULL) {
         return MTM_OUT_OF_MEMORY;
     }
-    if (courseManager->logged_student == NULL) {
+    if (course_manager->logged_student == NULL) {
         return MTM_NOT_LOGGED_IN;
     }
-    Student friend = getStudentFromSet(courseManager->students, id);
+    Student friend = getStudentFromSet(course_manager->students, id);
     if (friend == NULL) {
         return MTM_STUDENT_DOES_NOT_EXIST;
     }
-    StudentResult add_result = addFriendRequest(courseManager->logged_student, friend);
+    StudentResult add_result = addFriendRequest(course_manager->logged_student, friend);
     switch (add_result) {
         case STUDENT_ALREADY_FRIEND: return MTM_ALREADY_FRIEND;
         case STUDENT_ALREADY_REQUESTED: return MTM_ALREADY_REQUESTED;
@@ -154,7 +162,7 @@ MtmErrorCode sendFriendRequest(CourseManager courseManager, int id) {
 
 /**
  * handleFriendRequest - accept or reject a friend request of the logged student
- * @param courseManager - the course manager that the student is logging in to
+ * @param course_manager - the course manager that the student is logging in to
  * @param otherId - the id of the student to handle it's request
  * @param action - accept/reject
  * @return
@@ -166,13 +174,13 @@ MtmErrorCode sendFriendRequest(CourseManager courseManager, int id) {
  * student with the given id
  * MTM_INVALID_PARAMETERS - if the action is not one of "accept" or "reject"
  */
-MtmErrorCode handleFriendRequest(CourseManager courseManager, int otherId, char* action) {
-    if (courseManager == NULL || courseManager->students == NULL) return MTM_OUT_OF_MEMORY;
+MtmErrorCode handleFriendRequest(CourseManager course_manager, int otherId, char* action) {
+    if (course_manager == NULL || course_manager->students == NULL) return MTM_OUT_OF_MEMORY;
     if (strcmp(action, "accept") != 0 && strcmp(action, "reject") != 0) return MTM_INVALID_PARAMETERS;
-    if (courseManager->logged_student == NULL) return MTM_NOT_LOGGED_IN;
+    if (course_manager->logged_student == NULL) return MTM_NOT_LOGGED_IN;
 
-    Student logged_in = courseManager->logged_student;
-    Student friend = getStudentFromSet(courseManager->students, otherId);
+    Student logged_in = course_manager->logged_student;
+    Student friend = getStudentFromSet(course_manager->students, otherId);
     if (friend == NULL) return MTM_STUDENT_DOES_NOT_EXIST;
     if (isFriend(logged_in, friend)) return MTM_ALREADY_FRIEND;
     if (isThereFriendRequest(logged_in, friend) == false) return MTM_NOT_REQUESTED;
@@ -194,7 +202,7 @@ MtmErrorCode handleFriendRequest(CourseManager courseManager, int otherId, char*
 
 /**
  * unFriend - remove the friendship between the logged student and the student with the given id
- * @param courseManager - the course manager that the student is logged to
+ * @param course_manager - the course manager that the student is logged to
  * @param otherId - the id of the student to remove the friendship with
  * @return
  * MTM_NOT_LOGGED_IN - if no student is logged in to the system
@@ -202,13 +210,13 @@ MtmErrorCode handleFriendRequest(CourseManager courseManager, int otherId, char*
  * MTM_NOT_FRIEND - if there is no friendship between the logged student and the student with the given id
  * (or the other id is the id of the loggen student)
  */
-MtmErrorCode unFriend(CourseManager courseManager, int otherId) {
-    if (courseManager == NULL || courseManager->students == NULL) return MTM_OUT_OF_MEMORY;
-    if (courseManager->logged_student == NULL) return MTM_NOT_LOGGED_IN;
+MtmErrorCode unFriend(CourseManager course_manager, int otherId) {
+    if (course_manager == NULL || course_manager->students == NULL) return MTM_OUT_OF_MEMORY;
+    if (course_manager->logged_student == NULL) return MTM_NOT_LOGGED_IN;
 
-    Student friend = getStudentFromSet(courseManager->students, otherId);
+    Student friend = getStudentFromSet(course_manager->students, otherId);
     if (friend == NULL) return MTM_STUDENT_DOES_NOT_EXIST;
-    Student logged_in = courseManager->logged_student;
+    Student logged_in = course_manager->logged_student;
     if (isFriend(logged_in, friend) == false || studentCompare(logged_in, friend) == 0) return MTM_NOT_FRIEND;
     removeFriend(logged_in, friend);
     removeFriend(friend, logged_in); // remove both ways
@@ -217,7 +225,7 @@ MtmErrorCode unFriend(CourseManager courseManager, int otherId) {
 /**
  * addGrade - adds the given grade to the logged student's grade sheet,
  * attacked to the given course in the given semester.
- * @param courseManager - the course manager that the student is logged to
+ * @param course_manager - the course manager that the student is logged to
  * @param semester - the semester the grade is attached to (must be positive number)
  * @param course_id - the id of the course the grade is attached to (must be positive number lower than 1000000000)
  * @param points - the number of points for the course the grade is attached to
@@ -227,11 +235,14 @@ MtmErrorCode unFriend(CourseManager courseManager, int otherId) {
  * MTM_NOT_LOGGED_IN - if no student is logged in to the system
  * MTM_INVALID_PARAMETERS - if one of the parameters is not valid
  */
-MtmErrorCode addGrade(CourseManager courseManager, int semester, int course_id, char* points, int grade) {
-    if (courseManager == NULL || courseManager->students == NULL) return MTM_OUT_OF_MEMORY;
+MtmErrorCode addGrade(CourseManager course_manager, int semester, int course_id, char* points, int grade) {
+    if (course_manager == NULL || course_manager->students == NULL) return MTM_OUT_OF_MEMORY;
     if (points == NULL) return MTM_INVALID_PARAMETERS;
-    if (courseManager->logged_student == NULL) return MTM_NOT_LOGGED_IN;
-    Student logged_in = courseManager->logged_student;
+    if (semester < 0 || course_id < 0 || course_id >= 1000000000 || grade < 0 || grade > 100) {
+        return MTM_INVALID_PARAMETERS;
+    }
+    if (course_manager->logged_student == NULL) return MTM_NOT_LOGGED_IN;
+    Student logged_in = course_manager->logged_student;
     StudentResult add_result = studentAddGrade(logged_in, semester, course_id, points, grade);
     if (add_result == STUDENT_OUT_OF_MEMORY || add_result == STUDENT_NULL_ARGUMENT) return MTM_OUT_OF_MEMORY;
     if (add_result == STUDENT_INVALID_PARAMETER) return MTM_INVALID_PARAMETERS;
@@ -239,27 +250,227 @@ MtmErrorCode addGrade(CourseManager courseManager, int semester, int course_id, 
 
 /**
  * removeGrade - removes the last grade of the course with the given id in the given semester of the logged student
- * @param courseManager - the course manager that the student is logged to
+ * @param course_manager - the course manager that the student is logged to
  * @param semester - the semester which the grade to remove is in
  * @param course_id - the id of the course of the grade to remove
  * @return
  * MTM_NOT_LOGGED_IN - if no student is logged in to the system
  * MTM_COURSE_DOES_NOT_EXIST - if there are no grade for the logged student in the given course at the given semester
  */
-MtmErrorCode removeGrade(CourseManager courseManager, int semester, int course_id) {
-    if (courseManager == NULL || courseManager->students == NULL) return MTM_OUT_OF_MEMORY;
-    if (courseManager->logged_student == NULL) return MTM_NOT_LOGGED_IN;
-    StudentResult remove_result = studentRemoveGrade(courseManager->logged_student, semester, course_id);
+MtmErrorCode removeGrade(CourseManager course_manager, int semester, int course_id) {
+    if (course_manager == NULL || course_manager->students == NULL) return MTM_OUT_OF_MEMORY;
+    if (course_manager->logged_student == NULL) return MTM_NOT_LOGGED_IN;
+    StudentResult remove_result = studentRemoveGrade(course_manager->logged_student, semester, course_id);
     if (remove_result == STUDENT_OUT_OF_MEMORY) return MTM_OUT_OF_MEMORY;
     if (remove_result == STUDENT_COURSE_DOES_NOT_EXIST) return MTM_COURSE_DOES_NOT_EXIST;
 }
 
 /**
- * destroyCourseManager - deallocate all the memory the courseManager used
- * @param courseManager  - the courseManager to destroy
+ * updateGrade - updates the grade of the course with the given id to new_grade for the logged student.
+ * updates the grade of the last semester the logged student had grade in this course.
+ * @param course_manager - the course manager that the student is logged to
+ * @param course_id - the id of the course of the grade to update
+ * @param new_grade - the new grade for the course (must be integer between 0 and 100)
+ * @return
+ * MTM_NOT_LOGGED_IN - if no student is logged in to the system
+ * MTM_COURSE_DOES_NOT_EXIST - if there are no grades for the logged student in the given course
+ * MTM_INVALID_PARAMETERS - if the new grade is not valid
  */
-void destroyCourseManager(CourseManager courseManager) {
-    if (courseManager == NULL) return;
-    setDestroy(courseManager->students);
-    free(courseManager);
+MtmErrorCode updateGrade(CourseManager course_manager, int course_id, int new_grade) {
+    if (course_manager == NULL || course_manager->students == NULL) return MTM_OUT_OF_MEMORY;
+    if (course_manager->logged_student == NULL) return MTM_NOT_LOGGED_IN;
+    if (new_grade < 0 || new_grade > 100) return MTM_INVALID_PARAMETERS;
+    StudentResult update_result = studentUpdateGrade(course_manager->logged_student, course_id, new_grade);
+    if (update_result == STUDENT_COURSE_DOES_NOT_EXIST) return MTM_COURSE_DOES_NOT_EXIST;
+}
+
+/**
+ * printFullReport - prints full grades report for the logged student into the given output channel
+ * @param course_manager - the course manager that the student is logged to
+ * @param output_channel - the channel to print the report to
+ * @return
+ * MTM_NOT_LOGGED_IN - if no student is logged in to the system
+ */
+MtmErrorCode printFullReport(CourseManager course_manager, FILE* output_channel) {
+    if (course_manager == NULL || course_manager->students == NULL || output_channel == NULL) return MTM_OUT_OF_MEMORY;
+    if (course_manager->logged_student == NULL) return MTM_NOT_LOGGED_IN;
+    StudentResult print_result = studentPrintFullReport(course_manager->logged_student, output_channel);
+    if (print_result == STUDENT_OUT_OF_MEMORY) return MTM_OUT_OF_MEMORY;
+}
+
+/**
+ * printCleanReport - prints grades report of the logged student containing the effective grades of all the student's
+ * courses, sorted by course id (and also by semester number for sport courses with the same id).
+ * the print will be to the given output channel.
+ * @param course_manager - the course manager that the student is logged to
+ * @param output_channel - the channel to print the report to
+ * @return
+ * MTM_NOT_LOGGED_IN - if no student is logged in to the system
+ */
+MtmErrorCode printCleanReport(CourseManager course_manager, FILE* output_channel) {
+    if (course_manager == NULL || course_manager->students == NULL || output_channel == NULL) return MTM_OUT_OF_MEMORY;
+    if (course_manager->logged_student == NULL) return MTM_NOT_LOGGED_IN;
+    StudentResult print_result = studentPrintCleanReport(course_manager->logged_student, output_channel);
+    if (print_result == STUDENT_OUT_OF_MEMORY) return MTM_OUT_OF_MEMORY;
+}
+
+/**
+ * printBestGrades - prints the best effective sheet grades of the logged student. the amount of grades printed is
+ * given (must be positive number)
+ * @param course_manager - the course manager that the student is logged to
+ * @param amount - the number of grades to print (must be positive number)
+ * @param output_channel - the channel to print the report to
+ * @return
+ * MTM_INVALID_PARAMETERS - if the amount given is not valid
+ * MTM_NOT_LOGGED_IN - if no student is logged in to the system
+ */
+MtmErrorCode printBestGrades(CourseManager course_manager, int amount, FILE* output_channel) {
+    if (course_manager == NULL || course_manager->students == NULL || output_channel == NULL) return MTM_OUT_OF_MEMORY;
+    if (amount < 1) return MTM_INVALID_PARAMETERS;
+    if (course_manager->logged_student == NULL) return MTM_NOT_LOGGED_IN;
+    StudentResult print_result = studentPrintBestOrWorstGrades(course_manager->logged_student, amount, true,
+                                                               output_channel);
+    if (print_result == STUDENT_OUT_OF_MEMORY) {
+        return MTM_OUT_OF_MEMORY;
+    }
+}
+
+/**
+ * printWorstGrades - prints the worst effective sheet grades of the logged student. the amount of grades printed is
+ * given (must be positive number)
+ * @param course_manager - the course manager that the student is logged to
+ * @param amount - the number of grades to print (must be positive number)
+ * @param output_channel - the channel to print the grades to
+ * @return
+ * MTM_INVALID_PARAMETERS - if the amount given is not valid
+ * MTM_NOT_LOGGED_IN - if no student is logged in to the system
+ */
+MtmErrorCode printWorstGrades(CourseManager course_manager, int amount, FILE* output_channel) {
+    if (course_manager == NULL || course_manager->students == NULL || output_channel == NULL) return MTM_OUT_OF_MEMORY;
+    if (amount < 1) return MTM_INVALID_PARAMETERS;
+    if (course_manager->logged_student == NULL) return MTM_NOT_LOGGED_IN;
+    StudentResult print_result = studentPrintBestOrWorstGrades(course_manager->logged_student, amount, false,
+                                                               output_channel);
+    if (print_result == STUDENT_OUT_OF_MEMORY) {
+        return MTM_OUT_OF_MEMORY;
+    }
+}
+
+/**
+ * insertGradeIntoArrayIfHigher - checks if the given grade if higher than at least one of the grades inside the array.
+ * if it is - insert it to the array, sorted, and insert the student into the same index in the students array.
+ * @param array - the array to insert the grade into
+ * @param length - the length of both arrays
+ * @param grade - the grade to insert
+ */
+static void insertGradeIntoArrayIfHigher(int* grades, int student_best_grade, Student** students_array,
+                                         Student student, int length) {
+    assert(grades != NULL && students_array != NULL && student != NULL);
+    for (int i=length - 1; i >= 0; i--) {
+        if (students_array[i] == NULL) {
+            grades[i] = student_best_grade;
+            students_array[i] = &student;
+            break;
+        } else if (student_best_grade > grades[i] ||
+                ((student_best_grade == grades[i]) && (studentCompare(student, *students_array[i]) > 1))) {
+            for (int j = 0; j < i; j++) {
+                grades[j] = grades[j + 1];
+                if (*students_array[j+1] != NULL) {
+                    *students_array[j] = *students_array[j+1];
+                }
+            }
+            grades[i] = student_best_grade;
+            students_array[i] = &student;
+            break;
+        }
+    }
+}
+
+/**
+ * courseManagerPrintFriendsArray - prints the names of the students in the given array, from last one to the first one.
+ * stop printing if reaching NULL.
+ * @param best_graded_friends - the array of students to print
+ * @param length - the length of the array
+ * @param output_channel - the output channel to print to
+ */
+static void courseManagerPrintFriendsArray(Student** best_graded_friends, int length, FILE* output_channel) {
+    assert(best_graded_friends != NULL && output_channel != NULL);
+    for (int i=length - 1; i <= 0; i--) {
+        if (best_graded_friends[i] == NULL) {
+            break;
+        }
+        studentPrintName(*best_graded_friends[i], output_channel);
+    }
+}
+
+/**
+ * printReferenceSources - print the names of the logged student's friends who had the best grades in the course with
+ * the given course id. the amount of names printed is given (must be positive number).
+ * @param course_manager  - the course manager that the student is logged to
+ * @param course_id - the id of the course to search reference sources for
+ * @param amount - the number of friends' names to print
+ * @param output_channel - the channel to print the names to
+ * @return
+ * MTM_INVALID_PARAMETERS - if the amount given is not valid
+ * MTM_NOT_LOGGED_IN - if no student is logged in to the system
+ */
+MtmErrorCode printReferenceSources(CourseManager course_manager, int course_id, int amount, FILE* output_channel) {
+    if (course_manager == NULL || course_manager->students == NULL || output_channel == NULL) return MTM_OUT_OF_MEMORY;
+    if (amount < 1) return MTM_INVALID_PARAMETERS;
+    if (course_manager->logged_student == NULL) return MTM_NOT_LOGGED_IN;
+    Student** best_students = malloc(sizeof(Student*) * amount);
+    int* best_grades = malloc(sizeof(int*) * amount);
+    for (int i = 0; i < amount; i++) {
+        best_grades[i] = -1;
+        best_students[i] = NULL;
+    }
+    int current_friend_best_grade;
+    Set friends = studentGetStudentFriends(course_manager->logged_student);
+    Student current_friend;
+    SET_FOREACH(int, current_friend_id, friends) {
+        current_friend = getStudentFromSet(course_manager->students, current_friend_id);
+        current_friend_best_grade = studentGetBestGradeInCourse(current_friend, course_id);
+        insertGradeIntoArrayIfHigher(best_grades, current_friend_best_grade, best_students, current_friend, amount);
+    }
+    courseManagerPrintFriendsArray(best_students, amount, output_channel);
+    free(best_students);
+    free(best_grades);
+}
+
+/**
+ * sendFacultyReqeust - send the given request to the faculty from the logged student, regarding the course with the
+ * given course id, and prints the answer to the given output channel.
+ * @param course_manager - the course manager that the student is logged to
+ * @param course_id - the id of the course the request is about
+ * @param request - the request itself (can be one of "cancel_course", "register"course" or "remove_course")
+ * @param output_channel - the channel to print the response to
+ * @return
+ * MTM_INVALID_PARAMETERS - if the request given is not valid
+ * MTM_NOT_LOGGED_IN - if no student is logged in to the system
+ * MTM_COURSE_DOES_NOT_EXIST - if the student request to remove a course he do not have
+ */
+MtmErrorCode sendFacultyReqeust(CourseManager course_manager, int course_id, char* request, FILE* output_channel) {
+    if (course_manager == NULL || course_manager->students == NULL || output_channel == NULL) return MTM_OUT_OF_MEMORY;
+    if ((strcmp(request, available_requests[0]) != 0) && (strcmp(request, available_requests[1]) != 0) &&
+            (strcmp(request, available_requests[2]) != 0)) {
+        return MTM_INVALID_PARAMETERS;
+    }
+    if (course_manager->logged_student == NULL) return MTM_NOT_LOGGED_IN;
+    if (strcmp(request, available_requests[2]) == 0) { // "remove_course"
+        int student_best_grade = studentGetBestGradeInCourse(course_manager->logged_student, course_id);
+        if (student_best_grade == -1) {
+            return MTM_COURSE_DOES_NOT_EXIST;
+        }
+    }
+    mtmFacultyResponse(output_channel, faculty_response);
+}
+
+/**
+ * destroyCourseManager - deallocate all the memory the course_manager used
+ * @param course_manager  - the course_manager to destroy
+ */
+void destroyCourseManager(CourseManager course_manager) {
+    if (course_manager == NULL) return;
+    setDestroy(course_manager->students);
+    free(course_manager);
 }

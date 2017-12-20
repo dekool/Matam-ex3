@@ -82,12 +82,6 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="C:/Users/Dekel/Documents/mtm/ex3/course.c">
-			<Option target="ex3"/>
-		</Unit>
-		<Unit filename="C:/Users/Dekel/Documents/mtm/ex3/course.h">
-			<Option target="ex3"/>
-		</Unit>
 		<Unit filename="C:/Users/Dekel/Documents/mtm/ex3/course_manager.c">
 			<Option target="ex3"/>
 		</Unit>
@@ -107,12 +101,6 @@
 			<Option target="ex3"/>
 		</Unit>
 		<Unit filename="C:/Users/Dekel/Documents/mtm/ex3/semester.h">
-			<Option target="ex3"/>
-		</Unit>
-		<Unit filename="C:/Users/Dekel/Documents/mtm/ex3/semester_grade.c">
-			<Option target="ex3"/>
-		</Unit>
-		<Unit filename="C:/Users/Dekel/Documents/mtm/ex3/semester_grade.h">
 			<Option target="ex3"/>
 		</Unit>
 		<Unit filename="C:/Users/Dekel/Documents/mtm/ex3/student.c">

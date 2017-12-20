@@ -122,33 +122,6 @@ ex3/fast:
 	$(MAKE) -f CMakeFiles\ex3.dir\build.make CMakeFiles/ex3.dir/build
 .PHONY : ex3/fast
 
-course.obj: course.c.obj
-
-.PHONY : course.obj
-
-# target to build an object file
-course.c.obj:
-	$(MAKE) -f CMakeFiles\ex3.dir\build.make CMakeFiles/ex3.dir/course.c.obj
-.PHONY : course.c.obj
-
-course.i: course.c.i
-
-.PHONY : course.i
-
-# target to preprocess a source file
-course.c.i:
-	$(MAKE) -f CMakeFiles\ex3.dir\build.make CMakeFiles/ex3.dir/course.c.i
-.PHONY : course.c.i
-
-course.s: course.c.s
-
-.PHONY : course.s
-
-# target to generate assembly for a file
-course.c.s:
-	$(MAKE) -f CMakeFiles\ex3.dir\build.make CMakeFiles/ex3.dir/course.c.s
-.PHONY : course.c.s
-
 course_manager.obj: course_manager.c.obj
 
 .PHONY : course_manager.obj
@@ -257,33 +230,6 @@ semester.c.s:
 	$(MAKE) -f CMakeFiles\ex3.dir\build.make CMakeFiles/ex3.dir/semester.c.s
 .PHONY : semester.c.s
 
-semester_grade.obj: semester_grade.c.obj
-
-.PHONY : semester_grade.obj
-
-# target to build an object file
-semester_grade.c.obj:
-	$(MAKE) -f CMakeFiles\ex3.dir\build.make CMakeFiles/ex3.dir/semester_grade.c.obj
-.PHONY : semester_grade.c.obj
-
-semester_grade.i: semester_grade.c.i
-
-.PHONY : semester_grade.i
-
-# target to preprocess a source file
-semester_grade.c.i:
-	$(MAKE) -f CMakeFiles\ex3.dir\build.make CMakeFiles/ex3.dir/semester_grade.c.i
-.PHONY : semester_grade.c.i
-
-semester_grade.s: semester_grade.c.s
-
-.PHONY : semester_grade.s
-
-# target to generate assembly for a file
-semester_grade.c.s:
-	$(MAKE) -f CMakeFiles\ex3.dir\build.make CMakeFiles/ex3.dir/semester_grade.c.s
-.PHONY : semester_grade.c.s
-
 student.obj: student.c.obj
 
 .PHONY : student.obj
@@ -320,9 +266,6 @@ help:
 	@echo ... ex3
 	@echo ... edit_cache
 	@echo ... rebuild_cache
-	@echo ... course.obj
-	@echo ... course.i
-	@echo ... course.s
 	@echo ... course_manager.obj
 	@echo ... course_manager.i
 	@echo ... course_manager.s
@@ -335,9 +278,6 @@ help:
 	@echo ... semester.obj
 	@echo ... semester.i
 	@echo ... semester.s
-	@echo ... semester_grade.obj
-	@echo ... semester_grade.i
-	@echo ... semester_grade.s
 	@echo ... student.obj
 	@echo ... student.i
 	@echo ... student.s

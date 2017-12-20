@@ -3,6 +3,10 @@
 #include <stdlib.h>
 #include "assert.h"
 #include "semester.h"
+#include "grade.h"
+
+#define MIN_SPORT_COURSE_ID 390000
+#define MAX_SPORT_COURSE_ID 399999
 
 typedef struct student_t {
     int id;
@@ -193,11 +197,11 @@ void destroyInt(SetElement element) {
 ////////////////////////////////////////////////////////////////////
 
 /**
- * getStudentFromSet - return the student pointer of the student with given id from given set.
+ * getStudentFromSet - return the student object of the student with given id from given set.
  * @param set - the set to search the student in
  * @param id - the id of the student to search
  * @return
- * pointer to the student with the given id (if found).
+ * the student with the given id (if found).
  * if the student does not found, returns NULL
  */
 Student getStudentFromSet(Set set, int id) {
@@ -207,6 +211,18 @@ Student getStudentFromSet(Set set, int id) {
         }
     }
     return NULL;
+}
+
+/**
+ * studentGetStudentFriends - return set of ids of the student's friends.
+ * @param student - the to search for his friends
+ * @return
+ * set of ids of the student's friends.
+ * if the student is NULL, returns NULL
+ */
+Set studentGetStudentFriends(Student student) {
+    if (student == NULL) return NULL;
+    return student->friends;
 }
 
 /**
@@ -383,6 +399,409 @@ StudentResult studentRemoveGrade(Student student, int semester, int course_id) {
     if (remove_result == SEMESTER_COURSE_DOES_NOT_EXIST) return STUDENT_COURSE_DOES_NOT_EXIST;
     if (remove_result == SEMESTER_OUT_OF_MEMORY) return STUDENT_OUT_OF_MEMORY;
     return STUDENT_OK;
+}
+
+/**
+ * studentUpdateGrade - updates the grade for the given student in the last semester he have grade for the course with
+ * the given course id.
+ * @param student - the student to update the grade for
+ * @param course_id - the id of the course the grade to update is attached to
+ * @param new_grade - the new grade for the course (must be integer between 0 and 100)
+ * @return
+ * STUDENT_OUT_OF_MEMORY - if there was a memory error
+ * STUDENT_COURSE_DOES_NOT_EXIST -if there are no grades for the given student in the given course at the given semester
+ * STUDENT_INVALID_PARAMETER - if the new_grade is not valid
+ * STUDENT_OK - otherwise
+ */
+StudentResult studentUpdateGrade(Student student, int course_id, int new_grade) {
+    assert(student != NULL && student->semesters != NULL);
+    // get the last semester the student have grade for this course
+    Semester max_semester = NULL;
+    SET_FOREACH(Semester, current_semester, student->semesters) {
+        if (semesterGetCourseLastGrade(current_semester, course_id) != -1) {
+            max_semester = current_semester;
+        }
+    }
+    if (max_semester == NULL) return STUDENT_COURSE_DOES_NOT_EXIST;
+    SemesterResult update_result = semesterUpdateGrade(max_semester, course_id, new_grade);
+    if (update_result == SEMESTER_INVALID_PARAMETER) return STUDENT_INVALID_PARAMETER;
+    if (update_result == SEMESTER_COURSE_DOES_NOT_EXIST) return STUDENT_COURSE_DOES_NOT_EXIST;
+    return STUDENT_OK;
+}
+
+/**
+ * studentGetAllCoursesSet - inner function to get a set of the ids of all the courses the student have grades in
+ * @param student - the student to get his courses
+ * @param set - pointer to the set that will be return
+ * @return
+ * STUDENT_OUT_OF_MEMORY - if there was a memory error
+ * STUDENT_OK - otherwise
+ */
+static StudentResult studentGetAllCoursesSet(Student student, Set *set) {
+    assert(student != NULL && student->semesters != NULL);
+    Set courses = setCreate(copyInt, destroyInt, compareInt);
+    if (courses == NULL) return STUDENT_OUT_OF_MEMORY;
+    Set semester_courses;
+    SET_FOREACH(Semester, current_semester, student->semesters) {
+        SemesterResult semester_courses_result = semesterGetCoursesSet(current_semester, &semester_courses);
+        if (semester_courses_result == SEMESTER_OUT_OF_MEMORY) {
+            setDestroy(courses);
+            return STUDENT_OUT_OF_MEMORY;
+        }
+        SET_FOREACH(int, current_semester_course, semester_courses) {
+            // try to add the course even if it is already in the set - because if it is, nothing will happened
+            SetResult add_course_result = setAdd(courses, &current_semester_course);
+            if (add_course_result == SET_OUT_OF_MEMORY) {
+                setDestroy(courses);
+                setDestroy(semester_courses);
+                return STUDENT_OUT_OF_MEMORY;
+            }
+        }
+    }
+    *set = courses;
+    return STUDENT_OK;
+}
+
+/**
+ * isCourseASportCourse - inner function to determine if a course is a sport course
+ * @param course_id - the id of the course
+ * @return whether this course is a sport course
+ */
+static bool isCourseASportCourse(int course_id) {
+    return (course_id >= MIN_SPORT_COURSE_ID && course_id <= MAX_SPORT_COURSE_ID);
+}
+
+/**
+ * addEffectiveSheetCourseGradeAndPointsX2 - inner function that adds the effective sheet grade and point (multiple
+ * by 2) of the given course of the given student to the sum of the effective grades and point (given as pointers).
+ * if it is a course sport - add every semester effective grade and points
+ * @param student - the student to calculate it's grades
+ * @param course_id - the id of the course to add it's grades
+ * @param total_effective_course_points_x2 - pointer to the sum of effective points of the courses so far(multiple by 2)
+ * @param sum_effective_course_grades - pointer to the sum of effective grades of the courses so far
+ */
+static void addEffectiveSheetCourseGradeAndPointsX2(Student student, int course_id,
+                                         int* total_effective_course_points_x2, int* sum_effective_course_grades) {
+    assert(student != NULL && sum_effective_course_grades != NULL && total_effective_course_points_x2 != NULL);
+
+    int course_effective_semester_grades, course_points_x2, course_effective_sheet_grade = 0,course_points_sheet_x2 = 0;
+    SET_FOREACH(Semester, current_semester, student->semesters) {
+        course_points_x2 = semesterGetCoursePointsX2(current_semester, course_id);
+        course_effective_semester_grades = semesterGetCourseLastGrade(current_semester, course_id);
+        // check if this course was learned at this semester
+        if (course_points_x2 != -1 && course_effective_semester_grades != -1) {
+            // if it is sport course - add to total
+            if (isCourseASportCourse(course_id)) {
+                *total_effective_course_points_x2 += course_points_x2;
+                *sum_effective_course_grades += (course_points_x2*course_effective_semester_grades);
+            } else { // if it is not a sport course - keep the last semester details
+                course_effective_sheet_grade = course_effective_semester_grades;
+                course_points_sheet_x2 = course_points_x2;
+            }
+        }
+    }
+    // if it is not a sport course - add the course data after checking all semesters
+    if (!isCourseASportCourse(course_id)) {
+        *total_effective_course_points_x2 += course_points_sheet_x2;
+        *sum_effective_course_grades += (course_points_sheet_x2 * course_effective_sheet_grade);
+    }
+}
+
+/**
+ * printEffectiveSheetCourseGradeInfo - inner function that prints the effective sheet grade info of the the with the
+ * given id. if it is a sport course- print the effective grade info of every semester this course was learned.
+ * @param student - the student to calculate it's grades
+ * @param course_id - the id of the course to add it's grades
+ * @param output_channel - the channel to print the report to
+ */
+static void printEffectiveSheetCourseGradeInfo(Student student, int course_id, FILE* output_channel) {
+    assert(student != NULL && output_channel != NULL);
+
+    int course_effective_semester_grades, course_points_x2, course_effective_sheet_grade = 0,course_points_sheet_x2 = 0;
+    SET_FOREACH(Semester, current_semester, student->semesters) {
+        course_points_x2 = semesterGetCoursePointsX2(current_semester, course_id);
+        course_effective_semester_grades = semesterGetCourseLastGrade(current_semester, course_id);
+        // check if this course was learned at this semester
+        if (course_points_x2 != -1 && course_effective_semester_grades != -1) {
+            // if it is sport course - print the details of this semester
+            if (isCourseASportCourse(course_id)) {
+                mtmPrintGradeInfo(output_channel, course_id, course_points_x2, course_effective_semester_grades);
+            } else { // if it is not a sport course - keep the last semester details
+                course_effective_sheet_grade = course_effective_semester_grades;
+                course_points_sheet_x2 = course_points_x2;
+            }
+        }
+    }
+    // if it is not a sport course - print the course data after checking all semesters
+    if (!isCourseASportCourse(course_id)) {
+        mtmPrintGradeInfo(output_channel, course_id, course_points_sheet_x2, course_effective_sheet_grade);
+    }
+}
+
+/**
+ * studentPrintSummary - inner function to print summary of all the given student's grade sheet
+ * @param student - the student to print his summary
+ * @param output_channel - the channel to print the report to
+ * @return
+ * STUDENT_OUT_OF_MEMORY - if there was a memory error
+ * STUDENT_OK - otherwise
+ */
+static StudentResult studentPrintSummary(Student student, FILE* output_channel) {
+    assert(student != NULL && student->semesters != NULL && output_channel != NULL);
+    int total_course_points_x2 = 0, total_failed_course_points_x2 = 0, total_effective_course_points_x2 = 0,
+            sum_effective_course_grades = 0;
+    int semester_course_points_x2, semester_failed_course_points_x2;
+    SET_FOREACH(Semester, current_semester, student->semesters) {
+        semester_course_points_x2 = semesterGetTotalCoursePointsX2(current_semester);
+        if (semester_course_points_x2 == -1) return STUDENT_OUT_OF_MEMORY;
+        semester_failed_course_points_x2 = semesterGetFailedCoursePointsX2(current_semester);
+        if (semester_failed_course_points_x2 == -1) return STUDENT_OUT_OF_MEMORY;
+    }
+    Set courses;
+    StudentResult set_create_result = studentGetAllCoursesSet(student, &courses);
+    if (set_create_result == SET_OUT_OF_MEMORY) return STUDENT_OUT_OF_MEMORY;
+    SET_FOREACH(int, current_course_id, courses) {
+        addEffectiveSheetCourseGradeAndPointsX2(student, current_course_id, &total_effective_course_points_x2,
+                                                      &sum_effective_course_grades);
+    }
+    setDestroy(courses);
+    mtmPrintSummary(output_channel, total_course_points_x2, total_failed_course_points_x2,
+                    total_effective_course_points_x2,sum_effective_course_grades);
+    return STUDENT_OK;
+}
+
+/**
+ * studentPrintCleanSummary - inner function to print clean summary of all the given student's grade sheet
+ * @param student - the student to print his summary
+ * @param output_channel - the channel to print the report to
+ * @return
+ * STUDENT_OUT_OF_MEMORY - if there was a memory error
+ * STUDENT_OK - otherwise
+ */
+static StudentResult studentPrintCleanSummary(Student student, FILE* output_channel) {
+    assert(student != NULL && student->semesters != NULL && output_channel != NULL);
+    int total_effective_course_points_x2 = 0, sum_effective_course_grades = 0;
+    Set courses;
+    StudentResult set_create_result = studentGetAllCoursesSet(student, &courses);
+    if (set_create_result == SET_OUT_OF_MEMORY) return STUDENT_OUT_OF_MEMORY;
+    SET_FOREACH(int, current_course_id, courses) {
+        addEffectiveSheetCourseGradeAndPointsX2(student, current_course_id, &total_effective_course_points_x2,
+                                                &sum_effective_course_grades);
+    }
+    setDestroy(courses);
+    mtmPrintCleanSummary(output_channel, total_effective_course_points_x2, sum_effective_course_grades);
+    return STUDENT_OK;
+}
+
+/**
+ * studentPrintFullReport - prints full grades report of the student into the given outpt channel
+ * @param student - the student to print his report
+ * @param output_channel - the channel to print the report to
+ * @return
+ * STUDENT_OUT_OF_MEMORY - if there was a memory error
+ * STUDENT_OK - otherwise
+ */
+StudentResult studentPrintFullReport(Student student, FILE* output_channel) {
+    assert(student != NULL && student->semesters != NULL && output_channel != NULL);
+    mtmPrintStudentInfo(output_channel, student->id, student->firstName, student->lastName);
+    SET_FOREACH(Semester, current_semester, student->semesters) {
+        semesterPrintAllSemesterGrades(current_semester, output_channel);
+        SemesterResult print_result = semesterPrintInfo(current_semester, output_channel);
+        if (print_result == SEMESTER_OUT_OF_MEMORY || print_result == STUDENT_NULL_ARGUMENT) {
+            return STUDENT_OUT_OF_MEMORY;
+        }
+    }
+    // print the summary and return it's result (memory error or ok)
+    return studentPrintSummary(student, output_channel);
+}
+
+/**
+ * studentPrintCleanReport - prints grades report of the given student containing the effective grades of all the
+ * student's courses, sorted by course id (and also by semester number for sport courses with the same id).
+ * the print will be to the given output channel.
+ * @param student - the student to print his report
+ * @param output_channel - the channel to print the report to
+ * @return
+ * STUDENT_OUT_OF_MEMORY - if there was a memory error
+ * STUDENT_OK - otherwise
+ */
+StudentResult studentPrintCleanReport(Student student, FILE* output_channel) {
+    assert(student != NULL && student->semesters != NULL && output_channel != NULL);
+    mtmPrintStudentInfo(output_channel, student->id, student->firstName, student->lastName);
+
+    Set courses;
+    StudentResult set_create_result = studentGetAllCoursesSet(student, &courses);
+    if (set_create_result == SET_OUT_OF_MEMORY) return STUDENT_OUT_OF_MEMORY;
+    SET_FOREACH(int, current_course_id, courses) {
+        printEffectiveSheetCourseGradeInfo(student, current_course_id, output_channel);
+    }
+    setDestroy(courses);
+
+    // print the clean summary and return it's result (memory error or ok)
+    return studentPrintCleanSummary(student, output_channel);
+}
+
+/**
+ * insertGradeIntoArrayIfHigher - checks if the given grade if higher than at least one of the grades inside the array.
+ * if it is - insert it to the array, sorted.
+ * @param array - the array to insert the grade into
+ * @param length - the length of the array
+ * @param grade - the grade to insert
+ */
+static void insertGradeIntoArrayIfHigher(Grade** array, int length, Grade *grade) {
+    assert(array != NULL && grade != NULL);
+    for (int i=length - 1; i >= 0; i--) {
+        if (array[i] == NULL) {
+            array[i] = grade;
+            break;
+        } else if (gradeCompare(*grade, *array[i]) > 0) {
+            for (int j = 0; j < i; j++) {
+                array[j] = array[j + 1];
+            }
+            array[i] = grade;
+            break;
+        }
+    }
+}
+
+/**
+ * insertGradeIntoArrayIfLower - checks if the given grade if lower than at least one of the grades inside the array.
+ * if it is - insert it to the array, sorted.
+ * @param array - the array to insert the grade into
+ * @param length - the length of the array
+ * @param grade - the grade to insert
+ */
+static void insertGradeIntoArrayIfLower(Grade** array, int length, Grade *grade) {
+    assert(array != NULL && grade != NULL);
+    for (int i=length - 1; i >= 0; i--) {
+        if (array[i] == NULL) {
+            array[i] = grade;
+            break;
+        } else if (gradeCompare(*grade, *array[i]) < 0) {
+            for (int j = 0; j < i; j++) {
+                array[j] = array[j + 1];
+            }
+            array[i] = grade;
+            break;
+        }
+    }
+}
+
+/**
+ * insertCourseGradeIntoArrayIfFit - insert the pointer to the grade of the course with the given id of the given
+ * student into the given array if there is suitable place for it in the array.
+ * @param student - the student that owns the grades
+ * @param course_id - the id of the course the grades are attached to
+ * @param array - the array to insert the grade to
+ * @param length - the length of the array
+ * @param best - should the array kee[ the best grades, or if false - the worst grades
+ */
+static void insertCourseGradeIntoArrayIfFit(Student student, int course_id, Grade** array, int length, bool best) {
+    assert(array != NULL && student != NULL);
+    Grade course_semester_effective_grade, course_effective_grade;
+    SET_FOREACH(Semester, current_semester, student->semesters) {
+        course_effective_grade = semesterGetCourseLastGradeObject(current_semester, course_id);
+        // check if this course was learned at this semester
+        if (course_effective_grade != NULL) {
+            // if it is sport course - insert the details of this semester into the array
+            if (isCourseASportCourse(course_id)) {
+                course_effective_grade = semesterGetCourseLastGradeObject(current_semester, course_id);
+                if (best) {
+                    insertGradeIntoArrayIfHigher(array, length, &course_effective_grade);
+                } else {
+                    insertGradeIntoArrayIfLower(array, length, &course_effective_grade);
+                }
+            } else { // if it is not a sport course - keep the last semester details
+                course_semester_effective_grade = semesterGetCourseLastGradeObject(current_semester, course_id);
+            }
+        }
+    }
+    // if it is not a sport course - insert the course data after checking all semesters
+    if (!isCourseASportCourse(course_id)) {
+        if (best) {
+            insertGradeIntoArrayIfHigher(array, length, &course_semester_effective_grade);
+        } else {
+            insertGradeIntoArrayIfLower(array, length, &course_effective_grade);
+        }
+    }
+}
+
+/**
+ * studentPrintGradesArray - prints the grades in the given array, from last grade to the first one. stop printing if
+ * reaching NULL.
+ * @param array - the array to print
+ * @param length - the length of the array
+ * @param output_channel - the output channel to print to
+ */
+static void studentPrintGradesArray(Grade** array, int length, FILE* output_channel) {
+    assert(array != NULL && output_channel != NULL);
+    for (int i=length - 1; i <= 0; i--) {
+        if (array[i] == NULL) {
+            break;
+        }
+        mtmPrintGradeInfo(output_channel, getCourseId(*array[i]), getCoursePointsX2(*array[i]),
+                          getGradeNumber(*array[i]));
+    }
+}
+
+/**
+ * studentPrintBestOrWorstGrades - prints the best/worst (according to the parameter given) effective sheet grades of
+ * the given student. the amount of grades printed is given (must be positive number)
+ * @param student - the student to print his grades
+ * @param amount - the number of grades to print (must be positive number)
+ * @param best - true to print the best grades and false to print the worst grades
+ * @param output_channel - the channel to print the report to
+ * @return
+ * STUDENT_OUT_OF_MEMORY - if there was a memory error
+ * STUDENT_INVALID_PARAMETER - if amount is not valid
+ * STUDENT_OK - otherwise
+ */
+StudentResult studentPrintBestOrWorstGrades(Student student, int amount, bool best, FILE* output_channel) {
+    assert(student != NULL && student->semesters != NULL && output_channel != NULL);
+    if (amount < 1) return STUDENT_INVALID_PARAMETER;
+    Grade** best_grades = malloc(sizeof(Grade*) * amount);
+    for (int i = 0; i < amount; i++) {
+        best_grades = NULL;
+    }
+    Set courses;
+    StudentResult set_create_result = studentGetAllCoursesSet(student, &courses);
+    if (set_create_result == SET_OUT_OF_MEMORY) return STUDENT_OUT_OF_MEMORY;
+    SET_FOREACH(int, current_course_id, courses) {
+        insertCourseGradeIntoArrayIfFit(student, current_course_id, best_grades, amount, best);
+    }
+    studentPrintGradesArray(best_grades, amount, output_channel);
+    setDestroy(courses);
+    free(best_grades);
+}
+
+/**
+ * studentGetBestGradeInCourse - search for the best grade in all semesters in the course with the given id that the
+ * given student have. if the student is NULL or do not have any grade for the course with the given id - return -1.
+ * @param student - the student to search his best grade
+ * @param course_id - the id of the course to search
+ * @return
+ * the best grade of the given student in the given course. -1 if not found.
+ */
+int studentGetBestGradeInCourse(Student student, int course_id) {
+    if (student == NULL) return -1;
+    int best_grade = -1, best_semester_grade;
+    SET_FOREACH(Semester, current_semester, student->semesters) {
+        best_semester_grade = semesterGetCourseBestGrade(current_semester, course_id);
+        if (best_semester_grade > best_grade) {
+            best_grade = best_semester_grade;
+        }
+    }
+    return best_grade;
+}
+
+/**
+ * studentPrintName - prints the name of the student
+ * @param student - the student to print his name
+ * @param output_channel - the channel to print the report to
+ */
+void studentPrintName(Student student, FILE* output_channel) {
+    if (student == NULL) return;
+    mtmPrintStudentName(output_channel, student->firstName, student->lastName);
 }
 
 /**
