@@ -205,14 +205,14 @@ StudentResult studentRemoveGrade(Student student, int semester, int course_id);
  * @param new_grade - the new grade for the course (must be integer between 0 and 100)
  * @return
  * STUDENT_OUT_OF_MEMORY - if there was a memory error
- * STUDENT_COURSE_DOES_NOT_EXIST -if there are no grades for the given student in the given course at the given semester
+ * STUDENT_COURSE_DOES_NOT_EXIST -if there are no grades for the given student in the given course
  * STUDENT_INVALID_PARAMETER - if the new_grade is not valid
  * STUDENT_OK - otherwise
  */
 StudentResult studentUpdateGrade(Student student, int course_id, int new_grade);
 
 /**
- * studentPrintFullReport - prints full grades report of the student into the given outpt channel
+ * studentPrintFullReport - prints full grades report of the student into the given output channel
  * @param student - the student to print his report
  * @param output_channel - the channel to print the report to
  * @return

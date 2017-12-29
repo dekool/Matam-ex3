@@ -176,13 +176,113 @@ CMakeFiles/ex3.dir/grade.c.obj.provides: CMakeFiles/ex3.dir/grade.c.obj.requires
 CMakeFiles/ex3.dir/grade.c.obj.provides.build: CMakeFiles/ex3.dir/grade.c.obj
 
 
+CMakeFiles/ex3.dir/tests/grade_test.c.obj: CMakeFiles/ex3.dir/flags.make
+CMakeFiles/ex3.dir/tests/grade_test.c.obj: ../tests/grade_test.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Dekel\Documents\mtm\ex3\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/ex3.dir/tests/grade_test.c.obj"
+	C:\univercity\TDM-GCC-64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\ex3.dir\tests\grade_test.c.obj   -c C:\Users\Dekel\Documents\mtm\ex3\tests\grade_test.c
+
+CMakeFiles/ex3.dir/tests/grade_test.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ex3.dir/tests/grade_test.c.i"
+	C:\univercity\TDM-GCC-64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\Dekel\Documents\mtm\ex3\tests\grade_test.c > CMakeFiles\ex3.dir\tests\grade_test.c.i
+
+CMakeFiles/ex3.dir/tests/grade_test.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ex3.dir/tests/grade_test.c.s"
+	C:\univercity\TDM-GCC-64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\Dekel\Documents\mtm\ex3\tests\grade_test.c -o CMakeFiles\ex3.dir\tests\grade_test.c.s
+
+CMakeFiles/ex3.dir/tests/grade_test.c.obj.requires:
+
+.PHONY : CMakeFiles/ex3.dir/tests/grade_test.c.obj.requires
+
+CMakeFiles/ex3.dir/tests/grade_test.c.obj.provides: CMakeFiles/ex3.dir/tests/grade_test.c.obj.requires
+	$(MAKE) -f CMakeFiles\ex3.dir\build.make CMakeFiles/ex3.dir/tests/grade_test.c.obj.provides.build
+.PHONY : CMakeFiles/ex3.dir/tests/grade_test.c.obj.provides
+
+CMakeFiles/ex3.dir/tests/grade_test.c.obj.provides.build: CMakeFiles/ex3.dir/tests/grade_test.c.obj
+
+
+CMakeFiles/ex3.dir/tests/semester_test.c.obj: CMakeFiles/ex3.dir/flags.make
+CMakeFiles/ex3.dir/tests/semester_test.c.obj: ../tests/semester_test.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Dekel\Documents\mtm\ex3\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/ex3.dir/tests/semester_test.c.obj"
+	C:\univercity\TDM-GCC-64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\ex3.dir\tests\semester_test.c.obj   -c C:\Users\Dekel\Documents\mtm\ex3\tests\semester_test.c
+
+CMakeFiles/ex3.dir/tests/semester_test.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ex3.dir/tests/semester_test.c.i"
+	C:\univercity\TDM-GCC-64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\Dekel\Documents\mtm\ex3\tests\semester_test.c > CMakeFiles\ex3.dir\tests\semester_test.c.i
+
+CMakeFiles/ex3.dir/tests/semester_test.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ex3.dir/tests/semester_test.c.s"
+	C:\univercity\TDM-GCC-64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\Dekel\Documents\mtm\ex3\tests\semester_test.c -o CMakeFiles\ex3.dir\tests\semester_test.c.s
+
+CMakeFiles/ex3.dir/tests/semester_test.c.obj.requires:
+
+.PHONY : CMakeFiles/ex3.dir/tests/semester_test.c.obj.requires
+
+CMakeFiles/ex3.dir/tests/semester_test.c.obj.provides: CMakeFiles/ex3.dir/tests/semester_test.c.obj.requires
+	$(MAKE) -f CMakeFiles\ex3.dir\build.make CMakeFiles/ex3.dir/tests/semester_test.c.obj.provides.build
+.PHONY : CMakeFiles/ex3.dir/tests/semester_test.c.obj.provides
+
+CMakeFiles/ex3.dir/tests/semester_test.c.obj.provides.build: CMakeFiles/ex3.dir/tests/semester_test.c.obj
+
+
+CMakeFiles/ex3.dir/tests/student_test.c.obj: CMakeFiles/ex3.dir/flags.make
+CMakeFiles/ex3.dir/tests/student_test.c.obj: ../tests/student_test.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Dekel\Documents\mtm\ex3\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/ex3.dir/tests/student_test.c.obj"
+	C:\univercity\TDM-GCC-64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\ex3.dir\tests\student_test.c.obj   -c C:\Users\Dekel\Documents\mtm\ex3\tests\student_test.c
+
+CMakeFiles/ex3.dir/tests/student_test.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ex3.dir/tests/student_test.c.i"
+	C:\univercity\TDM-GCC-64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\Dekel\Documents\mtm\ex3\tests\student_test.c > CMakeFiles\ex3.dir\tests\student_test.c.i
+
+CMakeFiles/ex3.dir/tests/student_test.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ex3.dir/tests/student_test.c.s"
+	C:\univercity\TDM-GCC-64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\Dekel\Documents\mtm\ex3\tests\student_test.c -o CMakeFiles\ex3.dir\tests\student_test.c.s
+
+CMakeFiles/ex3.dir/tests/student_test.c.obj.requires:
+
+.PHONY : CMakeFiles/ex3.dir/tests/student_test.c.obj.requires
+
+CMakeFiles/ex3.dir/tests/student_test.c.obj.provides: CMakeFiles/ex3.dir/tests/student_test.c.obj.requires
+	$(MAKE) -f CMakeFiles\ex3.dir\build.make CMakeFiles/ex3.dir/tests/student_test.c.obj.provides.build
+.PHONY : CMakeFiles/ex3.dir/tests/student_test.c.obj.provides
+
+CMakeFiles/ex3.dir/tests/student_test.c.obj.provides.build: CMakeFiles/ex3.dir/tests/student_test.c.obj
+
+
+CMakeFiles/ex3.dir/tests/course_manager_test.c.obj: CMakeFiles/ex3.dir/flags.make
+CMakeFiles/ex3.dir/tests/course_manager_test.c.obj: ../tests/course_manager_test.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Dekel\Documents\mtm\ex3\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/ex3.dir/tests/course_manager_test.c.obj"
+	C:\univercity\TDM-GCC-64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\ex3.dir\tests\course_manager_test.c.obj   -c C:\Users\Dekel\Documents\mtm\ex3\tests\course_manager_test.c
+
+CMakeFiles/ex3.dir/tests/course_manager_test.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ex3.dir/tests/course_manager_test.c.i"
+	C:\univercity\TDM-GCC-64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\Dekel\Documents\mtm\ex3\tests\course_manager_test.c > CMakeFiles\ex3.dir\tests\course_manager_test.c.i
+
+CMakeFiles/ex3.dir/tests/course_manager_test.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ex3.dir/tests/course_manager_test.c.s"
+	C:\univercity\TDM-GCC-64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\Dekel\Documents\mtm\ex3\tests\course_manager_test.c -o CMakeFiles\ex3.dir\tests\course_manager_test.c.s
+
+CMakeFiles/ex3.dir/tests/course_manager_test.c.obj.requires:
+
+.PHONY : CMakeFiles/ex3.dir/tests/course_manager_test.c.obj.requires
+
+CMakeFiles/ex3.dir/tests/course_manager_test.c.obj.provides: CMakeFiles/ex3.dir/tests/course_manager_test.c.obj.requires
+	$(MAKE) -f CMakeFiles\ex3.dir\build.make CMakeFiles/ex3.dir/tests/course_manager_test.c.obj.provides.build
+.PHONY : CMakeFiles/ex3.dir/tests/course_manager_test.c.obj.provides
+
+CMakeFiles/ex3.dir/tests/course_manager_test.c.obj.provides.build: CMakeFiles/ex3.dir/tests/course_manager_test.c.obj
+
+
 # Object files for target ex3
 ex3_OBJECTS = \
 "CMakeFiles/ex3.dir/main.c.obj" \
 "CMakeFiles/ex3.dir/student.c.obj" \
 "CMakeFiles/ex3.dir/course_manager.c.obj" \
 "CMakeFiles/ex3.dir/semester.c.obj" \
-"CMakeFiles/ex3.dir/grade.c.obj"
+"CMakeFiles/ex3.dir/grade.c.obj" \
+"CMakeFiles/ex3.dir/tests/grade_test.c.obj" \
+"CMakeFiles/ex3.dir/tests/semester_test.c.obj" \
+"CMakeFiles/ex3.dir/tests/student_test.c.obj" \
+"CMakeFiles/ex3.dir/tests/course_manager_test.c.obj"
 
 # External object files for target ex3
 ex3_EXTERNAL_OBJECTS =
@@ -192,12 +292,16 @@ ex3.exe: CMakeFiles/ex3.dir/student.c.obj
 ex3.exe: CMakeFiles/ex3.dir/course_manager.c.obj
 ex3.exe: CMakeFiles/ex3.dir/semester.c.obj
 ex3.exe: CMakeFiles/ex3.dir/grade.c.obj
+ex3.exe: CMakeFiles/ex3.dir/tests/grade_test.c.obj
+ex3.exe: CMakeFiles/ex3.dir/tests/semester_test.c.obj
+ex3.exe: CMakeFiles/ex3.dir/tests/student_test.c.obj
+ex3.exe: CMakeFiles/ex3.dir/tests/course_manager_test.c.obj
 ex3.exe: CMakeFiles/ex3.dir/build.make
 ex3.exe: ../libmtm.a
 ex3.exe: CMakeFiles/ex3.dir/linklibs.rsp
 ex3.exe: CMakeFiles/ex3.dir/objects1.rsp
 ex3.exe: CMakeFiles/ex3.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\Dekel\Documents\mtm\ex3\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking C executable ex3.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\Dekel\Documents\mtm\ex3\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking C executable ex3.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\ex3.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -210,6 +314,10 @@ CMakeFiles/ex3.dir/requires: CMakeFiles/ex3.dir/student.c.obj.requires
 CMakeFiles/ex3.dir/requires: CMakeFiles/ex3.dir/course_manager.c.obj.requires
 CMakeFiles/ex3.dir/requires: CMakeFiles/ex3.dir/semester.c.obj.requires
 CMakeFiles/ex3.dir/requires: CMakeFiles/ex3.dir/grade.c.obj.requires
+CMakeFiles/ex3.dir/requires: CMakeFiles/ex3.dir/tests/grade_test.c.obj.requires
+CMakeFiles/ex3.dir/requires: CMakeFiles/ex3.dir/tests/semester_test.c.obj.requires
+CMakeFiles/ex3.dir/requires: CMakeFiles/ex3.dir/tests/student_test.c.obj.requires
+CMakeFiles/ex3.dir/requires: CMakeFiles/ex3.dir/tests/course_manager_test.c.obj.requires
 
 .PHONY : CMakeFiles/ex3.dir/requires
 

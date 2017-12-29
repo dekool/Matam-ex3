@@ -3,7 +3,7 @@
 #include <string.h>
 
 #include "test_utilities.h"
-#include "list_mtm.h"
+#include "../list/list_mtm.h"
 
 /**
  * Utility functions used in the tests
@@ -437,7 +437,7 @@ static bool testListClear() {
     return true;
 }
 
-int main() {
+int listTest() {
     RUN_TEST(testListCreate);
     RUN_TEST(testListCopy);
     RUN_TEST(testListGetSize);

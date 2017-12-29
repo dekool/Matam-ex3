@@ -17,7 +17,7 @@ typedef struct semester_t {
  * SEMESTER_OK - otherwise
  */
 SemesterResult semesterCreate(int semester_number, Semester *semester) {
-    if (semester < 0) return SEMESTER_INVALID_PARAMETER;
+    if (semester_number < 0) return SEMESTER_INVALID_PARAMETER;
 
     Semester new_semester = (Semester) malloc(sizeof(*new_semester));
     if (new_semester == NULL) return SEMESTER_OUT_OF_MEMORY;
@@ -99,7 +99,9 @@ Semester getSemesterFromSet(Set set, int semester_number) {
  * SEMESTER_OK - otherwise
  */
 SemesterResult semesterAddGrade(Semester semester, int course_id, char* points, int grade) {
-    assert(semester != NULL && semester->grades != NULL);
+    if (semester == NULL || semester->grades == NULL) {
+        return SEMESTER_OUT_OF_MEMORY;
+    }
     Grade new_grade = NULL;
     GradeResult create_result = gradeCreate(course_id, points, grade, semester->semester_number, &new_grade);
     if (create_result == GRADE_OUT_OF_MEMORY) return SEMESTER_OUT_OF_MEMORY;
@@ -154,7 +156,7 @@ int semesterGetCourseLastGrade(Semester semester, int course_id) {
  * @param semester - the semester to search the course grade in
  * @param course_id - the id of the course to search
  * @return
- * the best grade inserted for the given course in the given semester, or NULL if such grade do not exist
+ * the best grade inserted for the given course in the given semester, or -1 if such grade do not exist
  */
 int semesterGetCourseBestGrade(Semester semester, int course_id) {
     if (semester == NULL || semester->grades == NULL) return -1;
@@ -196,8 +198,9 @@ int semesterGetCoursePointsX2(Semester semester, int course_id) {
  */
 SemesterResult semesterRemoveGrade(Semester semester, int course_id) {
     List course_grade_list = listFilter(semester->grades, isGradeIsForCourse, &course_id);
-    if (course_grade_list == NULL) return SEMESTER_COURSE_DOES_NOT_EXIST;
+    if (course_grade_list == NULL) return SEMESTER_OUT_OF_MEMORY;
     int number_of_grades = listGetSize(course_grade_list);
+    if (number_of_grades == 0) return  SEMESTER_COURSE_DOES_NOT_EXIST;
 
     Grade currentGrade = listGetFirst(semester->grades);
     while (currentGrade != NULL) {
@@ -224,11 +227,11 @@ SemesterResult semesterRemoveGrade(Semester semester, int course_id) {
  * SEMESTER_OK - otherwise
  */
 SemesterResult semesterUpdateGrade(Semester semester, int course_id, int new_grade) {
-    assert(semester != NULL && semester->grades != NULL);
+    if (semester == NULL || semester->grades == NULL) return SEMESTER_OUT_OF_MEMORY;
     Grade last_grade = semesterGetCourseLastGradeObject(semester, course_id);
     GradeResult update_result = gradeUpdateGradeNumber(last_grade, new_grade);
-    if (update_result == GRADE_INVALID_PARAMETER) return SEMESTER_INVALID_PARAMETER;
     if (update_result == GRADE_NULL_ARGUMENT) return SEMESTER_COURSE_DOES_NOT_EXIST;
+    if (update_result == GRADE_INVALID_PARAMETER) return SEMESTER_INVALID_PARAMETER;
     return SEMESTER_OK;
 }
 
@@ -239,7 +242,7 @@ SemesterResult semesterUpdateGrade(Semester semester, int course_id, int new_gra
  * @param output_channel - the channel to print the grades to
  */
 void semesterPrintAllSemesterGrades(Semester semester, FILE* output_channel) {
-    assert(semester != NULL && semester->grades != NULL);
+    if (semester == NULL || semester->grades == NULL) return;
     LIST_FOREACH(Grade, current_grade, semester->grades) {
         gradePrintInfo(current_grade, output_channel);
     }
@@ -255,7 +258,7 @@ void semesterPrintAllSemesterGrades(Semester semester, FILE* output_channel) {
  * SEMESTER_OK - otherwise
  */
 SemesterResult semesterGetCoursesSet(Semester semester, Set *set) {
-    assert(semester != NULL && semester->grades != NULL);
+    if (semester == NULL || semester->grades == NULL) return SEMESTER_OUT_OF_MEMORY;
     Set new_set = setCreate(copyInt, destroyInt, compareInt);
     if (new_set == NULL) return SEMESTER_OUT_OF_MEMORY;
     int current_course_id;
@@ -320,8 +323,8 @@ int semesterGetEffectiveCoursePointsX2(Semester semester) {
     if (create_set_result == SEMESTER_OUT_OF_MEMORY) return -1;
     int total_effective_course_points = 0;
     Grade current_course_grade;
-    SET_FOREACH(int, current_course_id, courses_set) {
-        current_course_grade = semesterGetCourseLastGradeObject(semester, current_course_id);
+    SET_FOREACH(int*, current_course_id, courses_set) {
+        current_course_grade = semesterGetCourseLastGradeObject(semester, *current_course_id);
         total_effective_course_points += getCoursePointsX2(current_course_grade);
     }
     setDestroy(courses_set);
@@ -342,8 +345,8 @@ int semesterGetEffectiveGradeSumX2(Semester semester) {
     if (create_set_result == SEMESTER_OUT_OF_MEMORY) return -1;
     int sum_course_points = 0;
     Grade current_course_grade;
-    SET_FOREACH(int, current_course_id, courses_set) {
-        current_course_grade = semesterGetCourseLastGradeObject(semester, current_course_id);
+    SET_FOREACH(int*, current_course_id, courses_set) {
+        current_course_grade = semesterGetCourseLastGradeObject(semester, *current_course_id);
         sum_course_points += (getGradeNumber(current_course_grade)*getCoursePointsX2(current_course_grade));
     }
     setDestroy(courses_set);

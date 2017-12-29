@@ -3,7 +3,7 @@
 #include <stdbool.h>
 
 #include "test_utilities.h"
-#include "node.h"
+#include "../list/node.h"
 
 /**
  * Utility functions used in the tests

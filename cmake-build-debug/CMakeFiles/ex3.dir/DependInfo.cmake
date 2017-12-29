@@ -9,6 +9,10 @@ set(CMAKE_DEPENDS_CHECK_C
   "C:/Users/Dekel/Documents/mtm/ex3/main.c" "C:/Users/Dekel/Documents/mtm/ex3/cmake-build-debug/CMakeFiles/ex3.dir/main.c.obj"
   "C:/Users/Dekel/Documents/mtm/ex3/semester.c" "C:/Users/Dekel/Documents/mtm/ex3/cmake-build-debug/CMakeFiles/ex3.dir/semester.c.obj"
   "C:/Users/Dekel/Documents/mtm/ex3/student.c" "C:/Users/Dekel/Documents/mtm/ex3/cmake-build-debug/CMakeFiles/ex3.dir/student.c.obj"
+  "C:/Users/Dekel/Documents/mtm/ex3/tests/course_manager_test.c" "C:/Users/Dekel/Documents/mtm/ex3/cmake-build-debug/CMakeFiles/ex3.dir/tests/course_manager_test.c.obj"
+  "C:/Users/Dekel/Documents/mtm/ex3/tests/grade_test.c" "C:/Users/Dekel/Documents/mtm/ex3/cmake-build-debug/CMakeFiles/ex3.dir/tests/grade_test.c.obj"
+  "C:/Users/Dekel/Documents/mtm/ex3/tests/semester_test.c" "C:/Users/Dekel/Documents/mtm/ex3/cmake-build-debug/CMakeFiles/ex3.dir/tests/semester_test.c.obj"
+  "C:/Users/Dekel/Documents/mtm/ex3/tests/student_test.c" "C:/Users/Dekel/Documents/mtm/ex3/cmake-build-debug/CMakeFiles/ex3.dir/tests/student_test.c.obj"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 

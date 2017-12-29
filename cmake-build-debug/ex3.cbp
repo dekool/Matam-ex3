@@ -109,6 +109,18 @@
 		<Unit filename="C:/Users/Dekel/Documents/mtm/ex3/student.h">
 			<Option target="ex3"/>
 		</Unit>
+		<Unit filename="C:/Users/Dekel/Documents/mtm/ex3/tests/course_manager_test.c">
+			<Option target="ex3"/>
+		</Unit>
+		<Unit filename="C:/Users/Dekel/Documents/mtm/ex3/tests/grade_test.c">
+			<Option target="ex3"/>
+		</Unit>
+		<Unit filename="C:/Users/Dekel/Documents/mtm/ex3/tests/semester_test.c">
+			<Option target="ex3"/>
+		</Unit>
+		<Unit filename="C:/Users/Dekel/Documents/mtm/ex3/tests/student_test.c">
+			<Option target="ex3"/>
+		</Unit>
 		<Unit filename="C:/Users/Dekel/Documents/mtm/ex3/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>

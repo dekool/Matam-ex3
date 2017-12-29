@@ -31,7 +31,7 @@ typedef struct student_t {
 */
 StudentResult studentCreate(int id, char* firstName, char* lastName, Student *student) {
     if (firstName == NULL || lastName == NULL) return STUDENT_NULL_ARGUMENT;
-    if (id >= 1000000000) return STUDENT_INVALID_PARAMETER;
+    if (id >= 1000000000 || id < 0) return STUDENT_INVALID_PARAMETER;
 
     Student new_student = (Student) malloc(sizeof(*new_student));
     if (new_student == NULL) return STUDENT_OUT_OF_MEMORY;
@@ -162,7 +162,7 @@ int studentCompare(Student student1, Student student2) {
  */
 SetElement copyInt(SetElement element) {
     if (element == NULL) return NULL;
-    int* newInt = malloc(sizeof(int));
+    int* newInt = malloc(sizeof(*newInt));
     if (newInt == NULL) return NULL;
     *newInt = *(int*)element;
     return newInt;
@@ -222,7 +222,7 @@ Student getStudentFromSet(Set set, int id) {
  */
 Set studentGetStudentFriends(Student student) {
     if (student == NULL) return NULL;
-    return student->friends;
+    return setCopy(student->friends);
 }
 
 /**
@@ -239,7 +239,7 @@ Set studentGetStudentFriends(Student student) {
 
 StudentResult addFriendRequest(Student student, Student friend) {
     if (student == NULL || friend == NULL || student->friends == NULL) return STUDENT_NULL_ARGUMENT;
-    if (setIsIn(student->friends, &(friend->id)) || studentCompare(student, friend)) {
+    if (setIsIn(student->friends, &(friend->id)) || studentCompare(student, friend) == 0) {
         return STUDENT_ALREADY_FRIEND;
     }
     SetResult addResult = setAdd(friend->pendingFriendRequests, &(student->id));
@@ -269,6 +269,7 @@ StudentResult removeFriendRequest(Student student, Student friend) {
  * @return whether there is such request or not (or they are the same student)
  */
 bool isThereFriendRequest(Student student, Student friend) {
+    if (student == NULL || friend == NULL) return false;
     return (setIsIn(student->pendingFriendRequests, &(friend->id)) || studentCompare(student, friend) == 0);
 }
 
@@ -300,6 +301,7 @@ StudentResult addFriend(Student student, Student friend) {
  * true if friend is in student's friends list (or they are the same student), false otherwise
  */
 bool isFriend(Student student, Student friend) {
+    if (student == NULL || friend == NULL) return false;
     return (setIsIn(student->friends, &(friend->id)) || studentCompare(student, friend) == 0);
 }
 
@@ -309,6 +311,7 @@ bool isFriend(Student student, Student friend) {
  * @param student2 - the second student
  */
 void removeFriend(Student student1, Student student2) {
+    if (student1 == NULL || student2 == NULL) return;
     setRemove(student1->friends, &(student2->id));
     setRemove(student2->friends, &(student1->id));
 }
@@ -320,6 +323,7 @@ void removeFriend(Student student1, Student student2) {
  * @param student - the student to remove
  */
 void removeStudentFromFriendsSet(Set set, Student student) {
+    if (set == NULL || student == NULL) return;
     // remove student from all friend lists
     SET_FOREACH(Student, currentStudent, set) {
         setRemove(currentStudent->friends, &(student->id));
@@ -355,28 +359,29 @@ StudentResult studentAddGrade(Student student, int semester_number, int course_i
         if (create_result == SEMESTER_OUT_OF_MEMORY) return STUDENT_OUT_OF_MEMORY;
         if (create_result == SEMESTER_INVALID_PARAMETER) return STUDENT_INVALID_PARAMETER;
         SetResult add_result = setAdd(student->semesters, semester);
+        semesterDestroy(semester);
         if (add_result == SET_OUT_OF_MEMORY) {
-            semesterDestroy(semester);
             return STUDENT_OUT_OF_MEMORY;
         }
+        semester = getSemesterFromSet(student->semesters, semester_number);
         semester_added = 1;
     }
     SemesterResult add_result = semesterAddGrade(semester, course_id, points, grade);
     if (add_result == SEMESTER_OUT_OF_MEMORY) {
         if (semester_added == 1) {
             setRemove(student->semesters, semester);
-            semesterDestroy(semester);
             return STUDENT_OUT_OF_MEMORY;
         }
+        return STUDENT_OUT_OF_MEMORY;
     }
     if (add_result == SEMESTER_INVALID_PARAMETER) {
         if (semester_added == 1) {
             setRemove(student->semesters, semester);
-            semesterDestroy(semester);
             return STUDENT_INVALID_PARAMETER;
         }
+        return STUDENT_INVALID_PARAMETER;
     }
-    semesterDestroy(semester); // the data is copied to the set
+    // the data is not copied to the set, so do not need to destroy semester
     return STUDENT_OK;
 }
 
@@ -392,7 +397,7 @@ StudentResult studentAddGrade(Student student, int semester_number, int course_i
  * STUDENT_OK - otherwise
  */
 StudentResult studentRemoveGrade(Student student, int semester, int course_id) {
-    assert(student != NULL && student->semesters != NULL);
+    if (student == NULL || student->semesters == NULL) return STUDENT_OUT_OF_MEMORY;
     Semester grade_semester = getSemesterFromSet(student->semesters, semester);
     if (grade_semester == NULL) return STUDENT_COURSE_DOES_NOT_EXIST;
     SemesterResult remove_result = semesterRemoveGrade(grade_semester, course_id);
@@ -409,12 +414,12 @@ StudentResult studentRemoveGrade(Student student, int semester, int course_id) {
  * @param new_grade - the new grade for the course (must be integer between 0 and 100)
  * @return
  * STUDENT_OUT_OF_MEMORY - if there was a memory error
- * STUDENT_COURSE_DOES_NOT_EXIST -if there are no grades for the given student in the given course at the given semester
+ * STUDENT_COURSE_DOES_NOT_EXIST -if there are no grades for the given student in the given course
  * STUDENT_INVALID_PARAMETER - if the new_grade is not valid
  * STUDENT_OK - otherwise
  */
 StudentResult studentUpdateGrade(Student student, int course_id, int new_grade) {
-    assert(student != NULL && student->semesters != NULL);
+    if (student == NULL || student->semesters == NULL) return STUDENT_OUT_OF_MEMORY;
     // get the last semester the student have grade for this course
     Semester max_semester = NULL;
     SET_FOREACH(Semester, current_semester, student->semesters) {
@@ -438,7 +443,7 @@ StudentResult studentUpdateGrade(Student student, int course_id, int new_grade) 
  * STUDENT_OK - otherwise
  */
 static StudentResult studentGetAllCoursesSet(Student student, Set *set) {
-    assert(student != NULL && student->semesters != NULL);
+    if (student == NULL || student->semesters == NULL) return STUDENT_OUT_OF_MEMORY;
     Set courses = setCreate(copyInt, destroyInt, compareInt);
     if (courses == NULL) return STUDENT_OUT_OF_MEMORY;
     Set semester_courses;
@@ -448,9 +453,9 @@ static StudentResult studentGetAllCoursesSet(Student student, Set *set) {
             setDestroy(courses);
             return STUDENT_OUT_OF_MEMORY;
         }
-        SET_FOREACH(int, current_semester_course, semester_courses) {
+        SET_FOREACH(int*, current_semester_course, semester_courses) {
             // try to add the course even if it is already in the set - because if it is, nothing will happened
-            SetResult add_course_result = setAdd(courses, &current_semester_course);
+            SetResult add_course_result = setAdd(courses, current_semester_course);
             if (add_course_result == SET_OUT_OF_MEMORY) {
                 setDestroy(courses);
                 setDestroy(semester_courses);
@@ -482,7 +487,7 @@ static bool isCourseASportCourse(int course_id) {
  */
 static void addEffectiveSheetCourseGradeAndPointsX2(Student student, int course_id,
                                          int* total_effective_course_points_x2, int* sum_effective_course_grades) {
-    assert(student != NULL && sum_effective_course_grades != NULL && total_effective_course_points_x2 != NULL);
+    if (student == NULL || sum_effective_course_grades == NULL || total_effective_course_points_x2 == NULL) return;
 
     int course_effective_semester_grades, course_points_x2, course_effective_sheet_grade = 0,course_points_sheet_x2 = 0;
     SET_FOREACH(Semester, current_semester, student->semesters) {
@@ -515,7 +520,7 @@ static void addEffectiveSheetCourseGradeAndPointsX2(Student student, int course_
  * @param output_channel - the channel to print the report to
  */
 static void printEffectiveSheetCourseGradeInfo(Student student, int course_id, FILE* output_channel) {
-    assert(student != NULL && output_channel != NULL);
+    if (student == NULL || output_channel == NULL) return;
 
     int course_effective_semester_grades, course_points_x2, course_effective_sheet_grade = 0,course_points_sheet_x2 = 0;
     SET_FOREACH(Semester, current_semester, student->semesters) {
@@ -547,21 +552,23 @@ static void printEffectiveSheetCourseGradeInfo(Student student, int course_id, F
  * STUDENT_OK - otherwise
  */
 static StudentResult studentPrintSummary(Student student, FILE* output_channel) {
-    assert(student != NULL && student->semesters != NULL && output_channel != NULL);
+    if (student == NULL || student->semesters == NULL || output_channel == NULL) return STUDENT_OUT_OF_MEMORY;
     int total_course_points_x2 = 0, total_failed_course_points_x2 = 0, total_effective_course_points_x2 = 0,
             sum_effective_course_grades = 0;
     int semester_course_points_x2, semester_failed_course_points_x2;
     SET_FOREACH(Semester, current_semester, student->semesters) {
         semester_course_points_x2 = semesterGetTotalCoursePointsX2(current_semester);
         if (semester_course_points_x2 == -1) return STUDENT_OUT_OF_MEMORY;
+        total_course_points_x2 += semester_course_points_x2;
         semester_failed_course_points_x2 = semesterGetFailedCoursePointsX2(current_semester);
         if (semester_failed_course_points_x2 == -1) return STUDENT_OUT_OF_MEMORY;
+        total_failed_course_points_x2 += semester_failed_course_points_x2;
     }
     Set courses;
     StudentResult set_create_result = studentGetAllCoursesSet(student, &courses);
     if (set_create_result == SET_OUT_OF_MEMORY) return STUDENT_OUT_OF_MEMORY;
-    SET_FOREACH(int, current_course_id, courses) {
-        addEffectiveSheetCourseGradeAndPointsX2(student, current_course_id, &total_effective_course_points_x2,
+    SET_FOREACH(int*, current_course_id, courses) {
+        addEffectiveSheetCourseGradeAndPointsX2(student, *current_course_id, &total_effective_course_points_x2,
                                                       &sum_effective_course_grades);
     }
     setDestroy(courses);
@@ -579,13 +586,13 @@ static StudentResult studentPrintSummary(Student student, FILE* output_channel) 
  * STUDENT_OK - otherwise
  */
 static StudentResult studentPrintCleanSummary(Student student, FILE* output_channel) {
-    assert(student != NULL && student->semesters != NULL && output_channel != NULL);
+    if (student == NULL || student->semesters == NULL || output_channel == NULL) return STUDENT_OUT_OF_MEMORY;
     int total_effective_course_points_x2 = 0, sum_effective_course_grades = 0;
     Set courses;
     StudentResult set_create_result = studentGetAllCoursesSet(student, &courses);
     if (set_create_result == SET_OUT_OF_MEMORY) return STUDENT_OUT_OF_MEMORY;
-    SET_FOREACH(int, current_course_id, courses) {
-        addEffectiveSheetCourseGradeAndPointsX2(student, current_course_id, &total_effective_course_points_x2,
+    SET_FOREACH(int*, current_course_id, courses) {
+        addEffectiveSheetCourseGradeAndPointsX2(student, *current_course_id, &total_effective_course_points_x2,
                                                 &sum_effective_course_grades);
     }
     setDestroy(courses);
@@ -594,7 +601,7 @@ static StudentResult studentPrintCleanSummary(Student student, FILE* output_chan
 }
 
 /**
- * studentPrintFullReport - prints full grades report of the student into the given outpt channel
+ * studentPrintFullReport - prints full grades report of the student into the given output channel
  * @param student - the student to print his report
  * @param output_channel - the channel to print the report to
  * @return
@@ -602,7 +609,7 @@ static StudentResult studentPrintCleanSummary(Student student, FILE* output_chan
  * STUDENT_OK - otherwise
  */
 StudentResult studentPrintFullReport(Student student, FILE* output_channel) {
-    assert(student != NULL && student->semesters != NULL && output_channel != NULL);
+    if (student == NULL || student->semesters == NULL || output_channel == NULL) return STUDENT_OUT_OF_MEMORY;
     mtmPrintStudentInfo(output_channel, student->id, student->firstName, student->lastName);
     SET_FOREACH(Semester, current_semester, student->semesters) {
         semesterPrintAllSemesterGrades(current_semester, output_channel);
@@ -626,14 +633,14 @@ StudentResult studentPrintFullReport(Student student, FILE* output_channel) {
  * STUDENT_OK - otherwise
  */
 StudentResult studentPrintCleanReport(Student student, FILE* output_channel) {
-    assert(student != NULL && student->semesters != NULL && output_channel != NULL);
+    if (student == NULL || student->semesters == NULL || output_channel == NULL) return STUDENT_OUT_OF_MEMORY;
     mtmPrintStudentInfo(output_channel, student->id, student->firstName, student->lastName);
 
     Set courses;
     StudentResult set_create_result = studentGetAllCoursesSet(student, &courses);
     if (set_create_result == SET_OUT_OF_MEMORY) return STUDENT_OUT_OF_MEMORY;
-    SET_FOREACH(int, current_course_id, courses) {
-        printEffectiveSheetCourseGradeInfo(student, current_course_id, output_channel);
+    SET_FOREACH(int*, current_course_id, courses) {
+        printEffectiveSheetCourseGradeInfo(student, *current_course_id, output_channel);
     }
     setDestroy(courses);
 
@@ -649,16 +656,16 @@ StudentResult studentPrintCleanReport(Student student, FILE* output_channel) {
  * @param grade - the grade to insert
  */
 static void insertGradeIntoArrayIfHigher(Grade** array, int length, Grade *grade) {
-    assert(array != NULL && grade != NULL);
+    if (array == NULL || grade == NULL) return;
     for (int i=length - 1; i >= 0; i--) {
-        if (array[i] == NULL) {
-            array[i] = grade;
+        if (*(array[i]) == NULL) {
+            *(array[i]) = *grade;
             break;
-        } else if (gradeCompare(*grade, *array[i]) > 0) {
+        } else if (gradeCompare(*grade, *array[i]) == 1) {
             for (int j = 0; j < i; j++) {
-                array[j] = array[j + 1];
+                *(array[j]) = *(array[j + 1]);
             }
-            array[i] = grade;
+            *(array[i]) = *grade;
             break;
         }
     }
@@ -672,17 +679,32 @@ static void insertGradeIntoArrayIfHigher(Grade** array, int length, Grade *grade
  * @param grade - the grade to insert
  */
 static void insertGradeIntoArrayIfLower(Grade** array, int length, Grade *grade) {
-    assert(array != NULL && grade != NULL);
+    if (array == NULL || grade == NULL) return;
+    bool smaller;
     for (int i=length - 1; i >= 0; i--) {
-        if (array[i] == NULL) {
-            array[i] = grade;
+        if (*(array[i]) == NULL) {
+            *(array[i]) = *(grade);
             break;
-        } else if (gradeCompare(*grade, *array[i]) < 0) {
-            for (int j = 0; j < i; j++) {
-                array[j] = array[j + 1];
+        } else {
+            smaller = false;
+            if (getGradeNumber(*grade) < getGradeNumber(*array[i])) {
+                smaller = true;
+            } else if (getGradeNumber(*grade) == getGradeNumber(*array[i])) {
+                if (getSemester(*grade) < getSemester(*array[i])) {
+                    smaller = true;
+                } else if (getSemester(*grade) == getSemester(*array[i])) {
+                    if (getCoursePointsX2(*grade) < getCoursePointsX2(*array[i])) {
+                        smaller = true;
+                    }
+                }
             }
-            array[i] = grade;
-            break;
+            if (smaller) {
+                for (int j = 0; j < i; j++) {
+                    *(array[j]) = *(array[j + 1]);
+                }
+                *(array[i]) = *grade;
+                break;
+            }
         }
     }
 }
@@ -697,7 +719,7 @@ static void insertGradeIntoArrayIfLower(Grade** array, int length, Grade *grade)
  * @param best - should the array kee[ the best grades, or if false - the worst grades
  */
 static void insertCourseGradeIntoArrayIfFit(Student student, int course_id, Grade** array, int length, bool best) {
-    assert(array != NULL && student != NULL);
+    if (array == NULL || student == NULL) return;
     Grade course_semester_effective_grade, course_effective_grade;
     SET_FOREACH(Semester, current_semester, student->semesters) {
         course_effective_grade = semesterGetCourseLastGradeObject(current_semester, course_id);
@@ -721,7 +743,7 @@ static void insertCourseGradeIntoArrayIfFit(Student student, int course_id, Grad
         if (best) {
             insertGradeIntoArrayIfHigher(array, length, &course_semester_effective_grade);
         } else {
-            insertGradeIntoArrayIfLower(array, length, &course_effective_grade);
+            insertGradeIntoArrayIfLower(array, length, &course_semester_effective_grade);
         }
     }
 }
@@ -734,9 +756,9 @@ static void insertCourseGradeIntoArrayIfFit(Student student, int course_id, Grad
  * @param output_channel - the output channel to print to
  */
 static void studentPrintGradesArray(Grade** array, int length, FILE* output_channel) {
-    assert(array != NULL && output_channel != NULL);
-    for (int i=length - 1; i <= 0; i--) {
-        if (array[i] == NULL) {
+    if (array == NULL || output_channel == NULL) return;
+    for (int i=length - 1; i >= 0; i--) {
+        if (*(array[i]) == NULL) {
             break;
         }
         mtmPrintGradeInfo(output_channel, getCourseId(*array[i]), getCoursePointsX2(*array[i]),
@@ -757,21 +779,33 @@ static void studentPrintGradesArray(Grade** array, int length, FILE* output_chan
  * STUDENT_OK - otherwise
  */
 StudentResult studentPrintBestOrWorstGrades(Student student, int amount, bool best, FILE* output_channel) {
-    assert(student != NULL && student->semesters != NULL && output_channel != NULL);
+    if (student == NULL || student->semesters == NULL || output_channel == NULL) return STUDENT_OUT_OF_MEMORY;
     if (amount < 1) return STUDENT_INVALID_PARAMETER;
-    Grade** best_grades = malloc(sizeof(Grade*) * amount);
+    Grade** best_grades = malloc(sizeof(Grade*) * (amount));
     for (int i = 0; i < amount; i++) {
-        best_grades = NULL;
+        best_grades[i] = malloc(sizeof(Grade*));
+        if (best_grades[i] == NULL) {
+            free(best_grades);
+            for (int j =0; j < amount; j ++) {
+                free(best_grades[j]);
+            }
+            return STUDENT_OUT_OF_MEMORY;
+        }
+        *(best_grades[i]) = NULL;
     }
     Set courses;
     StudentResult set_create_result = studentGetAllCoursesSet(student, &courses);
     if (set_create_result == SET_OUT_OF_MEMORY) return STUDENT_OUT_OF_MEMORY;
-    SET_FOREACH(int, current_course_id, courses) {
-        insertCourseGradeIntoArrayIfFit(student, current_course_id, best_grades, amount, best);
+    SET_FOREACH(int*, current_course_id, courses) {
+        insertCourseGradeIntoArrayIfFit(student, *current_course_id, best_grades, amount, best);
     }
     studentPrintGradesArray(best_grades, amount, output_channel);
     setDestroy(courses);
+    for (int i =0; i < amount; i ++) {
+        free(best_grades[i]);
+    }
     free(best_grades);
+    return STUDENT_OK;
 }
 
 /**
@@ -800,7 +834,7 @@ int studentGetBestGradeInCourse(Student student, int course_id) {
  * @param output_channel - the channel to print the report to
  */
 void studentPrintName(Student student, FILE* output_channel) {
-    if (student == NULL) return;
+    if (student == NULL || output_channel == NULL) return;
     mtmPrintStudentName(output_channel, student->firstName, student->lastName);
 }
 

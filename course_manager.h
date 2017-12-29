@@ -8,6 +8,22 @@
 
 typedef struct course_manager_t *CourseManager;
 
+/** Type used for returning error codes from functions */
+typedef enum CourseManagerResult_t {
+    COURSE_MANAGER_OK,
+    COURSE_MANAGER_OUT_OF_MEMORY, // You should exit program after this error
+    COURSE_MANAGER_NOT_LOGGED_IN,
+    COURSE_MANAGER_ALREADY_LOGGED_IN,
+    COURSE_MANAGER_STUDENT_DOES_NOT_EXIST,
+    COURSE_MANAGER_STUDENT_ALREADY_EXISTS,
+    COURSE_MANAGER_NOT_FRIEND,
+    COURSE_MANAGER_ALREADY_FRIEND,
+    COURSE_MANAGER_NOT_REQUESTED,
+    COURSE_MANAGER_ALREADY_REQUESTED,
+    COURSE_MANAGER_COURSE_DOES_NOT_EXIST,
+    COURSE_MANAGER_INVALID_PARAMETERS
+} CourseManagerResult;
+
 /**
  * courseManagerCreate - creates a new empty course manager
  * @return
@@ -23,52 +39,52 @@ CourseManager courseManagerCreate();
  * @param firstName - the student's first name
  * @param lastName - the student's last name
  * @return
- * MTM_STUDENT_ALREADY_EXISTS - if the a student with the same id is already registered in the system
- * MTM_INVALID_PARAMETERS - if the id entered is invalid (number is higher than 999999999 or negative)
- * MTM_OUT_OF_MEMORY - if there was a memory error
+ * COURSE_MANAGER_STUDENT_ALREADY_EXISTS - if the a student with the same id is already registered in the system
+ * COURSE_MANAGER_INVALID_PARAMETERS - if the id entered is invalid (number is higher than 999999999 or negative)
+ * COURSE_MANAGER_OUT_OF_MEMORY - if there was a memory error
  */
-MtmErrorCode addStudent(CourseManager  course_manager, int id, char* firstName, char* lastName);
+CourseManagerResult addStudent(CourseManager  course_manager, int id, char* firstName, char* lastName);
 
 /**
  * removeStudent - removes the student with the given id from the system
  * @param course_manager - the course manager to remove the student from
  * @param id  - the id of the student to be removed
  * @return
- * MTM_STUDENT_DOES_NOT_EXIST - if student with given id does not exist in the system
+ * COURSE_MANAGER_STUDENT_DOES_NOT_EXIST - if student with given id does not exist in the system
  */
-MtmErrorCode removeStudent(CourseManager course_manager, int id);
+CourseManagerResult removeStudent(CourseManager course_manager, int id);
 
 /**
  * logInStudent - log in student with the given id
  * @param course_manager - the course manager that the student is logging in to
  * @param id - the id of the student who log in
  * @return
- * MTM_ALREADY_LOGGED_IN - if a student is already logged in to the system
- * MTM_STUDENT_DOES_NOT_EXIST - if student with given id does not exist in the system
+ * COURSE_MANAGER_ALREADY_LOGGED_IN - if a student is already logged in to the system
+ * COURSE_MANAGER_STUDENT_DOES_NOT_EXIST - if student with given id does not exist in the system
  */
-MtmErrorCode logInStudent(CourseManager course_manager, int id);
+CourseManagerResult logInStudent(CourseManager course_manager, int id);
 
 /**
  * logOutStudent - log out the logged student
  * @param course_manager - the course manager that the student is logging out from
  * @return
- * MTM_NOT_LOGGED_IN - if no student is logged in to the system
+ * COURSE_MANAGER_NOT_LOGGED_IN - if no student is logged in to the system
  */
-MtmErrorCode logOutStudent(CourseManager course_manager);
+CourseManagerResult logOutStudent(CourseManager course_manager);
 
 /**
  * sendFriendRequest - send friend request from the logged student to the student with the given id
  * @param course_manager - the course manager that the student is logged to
  * @param id - the id of the student to send friend request to
  * @return
- * MTM_NOT_LOGGED_IN - if no student is logged in to the system
- * MTM_STUDENT_DOES_NOT_EXIST - if student with given id does not exist in the system
- * MTM_ALREADY_FRIEND - if the student with the requested id is already a friend of the logged student
+ * COURSE_MANAGER_NOT_LOGGED_IN - if no student is logged in to the system
+ * COURSE_MANAGER_STUDENT_DOES_NOT_EXIST - if student with given id does not exist in the system
+ * COURSE_MANAGER_ALREADY_FRIEND - if the student with the requested id is already a friend of the logged student
  * (or the requested id is the id of the logged student)
- * MTM_ALREADY_REQUESTED - if their is already a pending friend request from the logged student to the
+ * COURSE_MANAGER_ALREADY_REQUESTED - if their is already a pending friend request from the logged student to the
  * student with the given id
  */
-MtmErrorCode sendFriendRequest(CourseManager course_manager, int id);
+CourseManagerResult sendFriendRequest(CourseManager course_manager, int id);
 
 /**
  * handleFriendRequest - accept or reject a friend request of the logged student
@@ -76,27 +92,27 @@ MtmErrorCode sendFriendRequest(CourseManager course_manager, int id);
  * @param otherId - the id of the student to handle it's request
  * @param action - accept/reject
  * @return
- * MTM_NOT_LOGGED_IN - if no student is logged in to the system
- * MTM_STUDENT_DOES_NOT_EXIST - if student with given id does not exist in the system
- * MTM_ALREADY_FRIEND - if the student with the requested id is already a friend of the logged student
+ * COURSE_MANAGER_NOT_LOGGED_IN - if no student is logged in to the system
+ * COURSE_MANAGER_STUDENT_DOES_NOT_EXIST - if student with given id does not exist in the system
+ * COURSE_MANAGER_ALREADY_FRIEND - if the student with the requested id is already a friend of the logged student
  * (or the requested id is the id of the logged student)
- * MTM_NOT_REQUESTED - if there is no pending friend request from the logged student to the
+ * COURSE_MANAGER_NOT_REQUESTED - if there is no pending friend request from the logged student to the
  * student with the given id
- * MTM_INVALID_PARAMETERS - if the action is not one of "accept" or "reject"
+ * COURSE_MANAGER_INVALID_PARAMETERS - if the action is not one of "accept" or "reject"
  */
-MtmErrorCode handleFriendRequest(CourseManager course_manager, int otherId, char* action);
+CourseManagerResult handleFriendRequest(CourseManager course_manager, int otherId, char* action);
 
 /**
  * unFriend - remove the friendship between the logged student and the student with the given id
  * @param course_manager - the course manager that the student is logged to
  * @param otherId - the id of the student to remove the friendship with
  * @return
- * MTM_NOT_LOGGED_IN - if no student is logged in to the system
- * MTM_STUDENT_DOES_NOT_EXIST - if student with given id does not exist in the system
- * MTM_NOT_FRIEND - if there is no friendship between the logged student and the student with the given id
+ * COURSE_MANAGER_NOT_LOGGED_IN - if no student is logged in to the system
+ * COURSE_MANAGER_STUDENT_DOES_NOT_EXIST - if student with given id does not exist in the system
+ * COURSE_MANAGER_NOT_FRIEND - if there is no friendship between the logged student and the student with the given id
  * (or the other id is the id of the loggen student)
  */
-MtmErrorCode unFriend(CourseManager course_manager, int otherId);
+CourseManagerResult unFriend(CourseManager course_manager, int otherId);
 
 /**
  * addGrade - adds the given grade to the logged student's grade sheet,
@@ -108,10 +124,10 @@ MtmErrorCode unFriend(CourseManager course_manager, int otherId);
  * (must be in the format of X or X.0 or X.5, while X is an array of digits)
  * @param grade - the grade to add to the grade sheet (must be number between 0 and 100)
  * @return
- * MTM_NOT_LOGGED_IN - if no student is logged in to the system
- * MTM_INVALID_PARAMETERS - if one of the parameters is not valid
+ * COURSE_MANAGER_NOT_LOGGED_IN - if no student is logged in to the system
+ * COURSE_MANAGER_INVALID_PARAMETERS - if one of the parameters is not valid
  */
-MtmErrorCode addGrade(CourseManager course_manager, int semester, int course_id, char* points, int grade);
+CourseManagerResult addGrade(CourseManager course_manager, int semester, int course_id, char* points, int grade);
 
 /**
  * removeGrade - removes the last grade of the course with the given id in the given semester of the logged student
@@ -119,10 +135,10 @@ MtmErrorCode addGrade(CourseManager course_manager, int semester, int course_id,
  * @param semester - the semester which the grade to remove is in
  * @param course_id - the id of the course of the grade to remove
  * @return
- * MTM_NOT_LOGGED_IN - if no student is logged in to the system
- * MTM_COURSE_DOES_NOT_EXIST - if there are no grade for the logged student in the given course at the given semester
+ * COURSE_MANAGER_NOT_LOGGED_IN - if no student is logged in to the system
+ * COURSE_MANAGER_COURSE_DOES_NOT_EXIST - if there are no grade for the logged student in the given course at the given semester
  */
-MtmErrorCode removeGrade(CourseManager course_manager, int semester, int course_id);
+CourseManagerResult removeGrade(CourseManager course_manager, int semester, int course_id);
 
 /**
  * updateGrade - updates the grade of the course with the given id to new_grade for the logged student.
@@ -131,20 +147,20 @@ MtmErrorCode removeGrade(CourseManager course_manager, int semester, int course_
  * @param course_id - the id of the course of the grade to update
  * @param new_grade - the new grade for the course (must be integer between 0 and 100)
  * @return
- * MTM_NOT_LOGGED_IN - if no student is logged in to the system
- * MTM_COURSE_DOES_NOT_EXIST - if there are no grades for the logged student in the given course
- * MTM_INVALID_PARAMETERS - if the new grade is not valid
+ * COURSE_MANAGER_NOT_LOGGED_IN - if no student is logged in to the system
+ * COURSE_MANAGER_COURSE_DOES_NOT_EXIST - if there are no grades for the logged student in the given course
+ * COURSE_MANAGER_INVALID_PARAMETERS - if the new grade is not valid
  */
-MtmErrorCode updateGrade(CourseManager course_manager, int course_id, int new_grade);
+CourseManagerResult updateGrade(CourseManager course_manager, int course_id, int new_grade);
 
 /**
  * printFullReport - prints full grades report for the logged student into the given output channel
  * @param course_manager - the course manager that the student is logged to
  * @param output_channel - the channel to print the report to
  * @return
- * MTM_NOT_LOGGED_IN - if no student is logged in to the system
+ * COURSE_MANAGER_NOT_LOGGED_IN - if no student is logged in to the system
  */
-MtmErrorCode printFullReport(CourseManager course_manager, FILE* output_channel);
+CourseManagerResult printFullReport(CourseManager course_manager, FILE* output_channel);
 
 /**
  * printCleanReport - prints grades report of the logged student containing the effective grades of all the student's
@@ -153,9 +169,9 @@ MtmErrorCode printFullReport(CourseManager course_manager, FILE* output_channel)
  * @param course_manager - the course manager that the student is logged to
  * @param output_channel - the channel to print the report to
  * @return
- * MTM_NOT_LOGGED_IN - if no student is logged in to the system
+ * COURSE_MANAGER_NOT_LOGGED_IN - if no student is logged in to the system
  */
-MtmErrorCode printCleanReport(CourseManager course_manager, FILE* output_channel);
+CourseManagerResult printCleanReport(CourseManager course_manager, FILE* output_channel);
 
 /**
  * printBestGrades - prints the best effective sheet grades of the logged student. the amount of grades printed is
@@ -164,10 +180,10 @@ MtmErrorCode printCleanReport(CourseManager course_manager, FILE* output_channel
  * @param amount - the number of grades to print (must be positive number)
  * @param output_channel - the channel to print the report to
  * @return
- * MTM_INVALID_PARAMETERS - if the amount given is not valid
- * MTM_NOT_LOGGED_IN - if no student is logged in to the system
+ * COURSE_MANAGER_INVALID_PARAMETERS - if the amount given is not valid
+ * COURSE_MANAGER_NOT_LOGGED_IN - if no student is logged in to the system
  */
-MtmErrorCode printBestGrades(CourseManager course_manager, int amount, FILE* output_channel);
+CourseManagerResult printBestGrades(CourseManager course_manager, int amount, FILE* output_channel);
 
 /**
  * printWorstGrades - prints the worst effective sheet grades of the logged student. the amount of grades printed is
@@ -176,10 +192,10 @@ MtmErrorCode printBestGrades(CourseManager course_manager, int amount, FILE* out
  * @param amount - the number of grades to print (must be positive number)
  * @param output_channel - the channel to print the grades to
  * @return
- * MTM_INVALID_PARAMETERS - if the amount given is not valid
- * MTM_NOT_LOGGED_IN - if no student is logged in to the system
+ * COURSE_MANAGER_INVALID_PARAMETERS - if the amount given is not valid
+ * COURSE_MANAGER_NOT_LOGGED_IN - if no student is logged in to the system
  */
-MtmErrorCode printWorstGrades(CourseManager course_manager, int amount, FILE* output_channel);
+CourseManagerResult printWorstGrades(CourseManager course_manager, int amount, FILE* output_channel);
 
 /**
  * printReferenceSources - print the names of the logged student's friends who had the best grades in the course with
@@ -189,24 +205,24 @@ MtmErrorCode printWorstGrades(CourseManager course_manager, int amount, FILE* ou
  * @param amount - the number of friends' names to print (must be positive number)
  * @param output_channel - the channel to print the names to
  * @return
- * MTM_INVALID_PARAMETERS - if the amount given is not valid
- * MTM_NOT_LOGGED_IN - if no student is logged in to the system
+ * COURSE_MANAGER_INVALID_PARAMETERS - if the amount given is not valid
+ * COURSE_MANAGER_NOT_LOGGED_IN - if no student is logged in to the system
  */
-MtmErrorCode printReferenceSources(CourseManager course_manager, int course_id, int amount, FILE* output_channel);
+CourseManagerResult printReferenceSources(CourseManager course_manager, int course_id, int amount,FILE* output_channel);
 
 /**
  * sendFacultyReqeust - send the given request to the faculty from the logged student, regarding the course with the
  * given course id, and prints the answer to the given output channel.
  * @param course_manager - the course manager that the student is logged to
  * @param course_id - the id of the course the request is about
- * @param request - the request itself (can be one of "cancel_course", "register"course" or "remove_course")
+ * @param request - the request itself (can be one of "cancel_course", "register_course" or "remove_course")
  * @param output_channel - the channel to print the response to
  * @return
- * MTM_INVALID_PARAMETERS - if the request given is not valid
- * MTM_NOT_LOGGED_IN - if no student is logged in to the system
- * MTM_COURSE_DOES_NOT_EXIST - if the student request to remove a course he do not have
+ * COURSE_MANAGER_INVALID_PARAMETERS - if the request given is not valid
+ * COURSE_MANAGER_NOT_LOGGED_IN - if no student is logged in to the system
+ * COURSE_MANAGER_COURSE_DOES_NOT_EXIST - if the student request to remove a course he do not have
  */
-MtmErrorCode sendFacultyReqeust(CourseManager course_manager, int course_id, char* request, FILE* output_channel);
+CourseManagerResult sendFacultyReqeust(CourseManager course_manager, int course_id, char* request,FILE* output_channel);
 
 /**
  * destroyCourseManager - deallocate all the memory the course_manager used

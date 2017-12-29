@@ -111,7 +111,7 @@ int semesterGetCourseLastGrade(Semester semester, int course_id);
  * @param semester - the semester to search the course grade in
  * @param course_id - the id of the course to search
  * @return
- * the best grade inserted for the given course in the given semester, or NULL if such grade do not exist
+ * the best grade inserted for the given course in the given semester, or -1 if such grade do not exist
  */
 int semesterGetCourseBestGrade(Semester semester, int course_id);
 

@@ -32,3 +32,32 @@ CMakeFiles/ex3.dir/student.c.obj: ../set.h
 CMakeFiles/ex3.dir/student.c.obj: ../student.c
 CMakeFiles/ex3.dir/student.c.obj: ../student.h
 
+CMakeFiles/ex3.dir/tests/course_manager_test.c.obj: ../course_manager.h
+CMakeFiles/ex3.dir/tests/course_manager_test.c.obj: ../list.h
+CMakeFiles/ex3.dir/tests/course_manager_test.c.obj: ../mtm_ex3.h
+CMakeFiles/ex3.dir/tests/course_manager_test.c.obj: ../set.h
+CMakeFiles/ex3.dir/tests/course_manager_test.c.obj: ../student.h
+CMakeFiles/ex3.dir/tests/course_manager_test.c.obj: ../tests/course_manager_test.c
+CMakeFiles/ex3.dir/tests/course_manager_test.c.obj: ../tests/test_utilities.h
+
+CMakeFiles/ex3.dir/tests/grade_test.c.obj: ../grade.h
+CMakeFiles/ex3.dir/tests/grade_test.c.obj: ../list.h
+CMakeFiles/ex3.dir/tests/grade_test.c.obj: ../mtm_ex3.h
+CMakeFiles/ex3.dir/tests/grade_test.c.obj: ../set.h
+CMakeFiles/ex3.dir/tests/grade_test.c.obj: ../tests/grade_test.c
+CMakeFiles/ex3.dir/tests/grade_test.c.obj: ../tests/test_utilities.h
+
+CMakeFiles/ex3.dir/tests/semester_test.c.obj: ../grade.h
+CMakeFiles/ex3.dir/tests/semester_test.c.obj: ../list.h
+CMakeFiles/ex3.dir/tests/semester_test.c.obj: ../mtm_ex3.h
+CMakeFiles/ex3.dir/tests/semester_test.c.obj: ../semester.h
+CMakeFiles/ex3.dir/tests/semester_test.c.obj: ../set.h
+CMakeFiles/ex3.dir/tests/semester_test.c.obj: ../tests/semester_test.c
+CMakeFiles/ex3.dir/tests/semester_test.c.obj: ../tests/test_utilities.h
+
+CMakeFiles/ex3.dir/tests/student_test.c.obj: ../mtm_ex3.h
+CMakeFiles/ex3.dir/tests/student_test.c.obj: ../set.h
+CMakeFiles/ex3.dir/tests/student_test.c.obj: ../student.h
+CMakeFiles/ex3.dir/tests/student_test.c.obj: ../tests/student_test.c
+CMakeFiles/ex3.dir/tests/student_test.c.obj: ../tests/test_utilities.h
+

@@ -32,3 +32,32 @@ CMakeFiles/ex3.dir/student.c.obj
  C:/Users/Dekel/Documents/mtm/ex3/set.h
  C:/Users/Dekel/Documents/mtm/ex3/student.c
  C:/Users/Dekel/Documents/mtm/ex3/student.h
+CMakeFiles/ex3.dir/tests/course_manager_test.c.obj
+ C:/Users/Dekel/Documents/mtm/ex3/course_manager.h
+ C:/Users/Dekel/Documents/mtm/ex3/list.h
+ C:/Users/Dekel/Documents/mtm/ex3/mtm_ex3.h
+ C:/Users/Dekel/Documents/mtm/ex3/set.h
+ C:/Users/Dekel/Documents/mtm/ex3/student.h
+ C:/Users/Dekel/Documents/mtm/ex3/tests/course_manager_test.c
+ C:/Users/Dekel/Documents/mtm/ex3/tests/test_utilities.h
+CMakeFiles/ex3.dir/tests/grade_test.c.obj
+ C:/Users/Dekel/Documents/mtm/ex3/grade.h
+ C:/Users/Dekel/Documents/mtm/ex3/list.h
+ C:/Users/Dekel/Documents/mtm/ex3/mtm_ex3.h
+ C:/Users/Dekel/Documents/mtm/ex3/set.h
+ C:/Users/Dekel/Documents/mtm/ex3/tests/grade_test.c
+ C:/Users/Dekel/Documents/mtm/ex3/tests/test_utilities.h
+CMakeFiles/ex3.dir/tests/semester_test.c.obj
+ C:/Users/Dekel/Documents/mtm/ex3/grade.h
+ C:/Users/Dekel/Documents/mtm/ex3/list.h
+ C:/Users/Dekel/Documents/mtm/ex3/mtm_ex3.h
+ C:/Users/Dekel/Documents/mtm/ex3/semester.h
+ C:/Users/Dekel/Documents/mtm/ex3/set.h
+ C:/Users/Dekel/Documents/mtm/ex3/tests/semester_test.c
+ C:/Users/Dekel/Documents/mtm/ex3/tests/test_utilities.h
+CMakeFiles/ex3.dir/tests/student_test.c.obj
+ C:/Users/Dekel/Documents/mtm/ex3/mtm_ex3.h
+ C:/Users/Dekel/Documents/mtm/ex3/set.h
+ C:/Users/Dekel/Documents/mtm/ex3/student.h
+ C:/Users/Dekel/Documents/mtm/ex3/tests/student_test.c
+ C:/Users/Dekel/Documents/mtm/ex3/tests/test_utilities.h

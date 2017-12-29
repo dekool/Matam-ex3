@@ -257,6 +257,114 @@ student.c.s:
 	$(MAKE) -f CMakeFiles\ex3.dir\build.make CMakeFiles/ex3.dir/student.c.s
 .PHONY : student.c.s
 
+tests/course_manager_test.obj: tests/course_manager_test.c.obj
+
+.PHONY : tests/course_manager_test.obj
+
+# target to build an object file
+tests/course_manager_test.c.obj:
+	$(MAKE) -f CMakeFiles\ex3.dir\build.make CMakeFiles/ex3.dir/tests/course_manager_test.c.obj
+.PHONY : tests/course_manager_test.c.obj
+
+tests/course_manager_test.i: tests/course_manager_test.c.i
+
+.PHONY : tests/course_manager_test.i
+
+# target to preprocess a source file
+tests/course_manager_test.c.i:
+	$(MAKE) -f CMakeFiles\ex3.dir\build.make CMakeFiles/ex3.dir/tests/course_manager_test.c.i
+.PHONY : tests/course_manager_test.c.i
+
+tests/course_manager_test.s: tests/course_manager_test.c.s
+
+.PHONY : tests/course_manager_test.s
+
+# target to generate assembly for a file
+tests/course_manager_test.c.s:
+	$(MAKE) -f CMakeFiles\ex3.dir\build.make CMakeFiles/ex3.dir/tests/course_manager_test.c.s
+.PHONY : tests/course_manager_test.c.s
+
+tests/grade_test.obj: tests/grade_test.c.obj
+
+.PHONY : tests/grade_test.obj
+
+# target to build an object file
+tests/grade_test.c.obj:
+	$(MAKE) -f CMakeFiles\ex3.dir\build.make CMakeFiles/ex3.dir/tests/grade_test.c.obj
+.PHONY : tests/grade_test.c.obj
+
+tests/grade_test.i: tests/grade_test.c.i
+
+.PHONY : tests/grade_test.i
+
+# target to preprocess a source file
+tests/grade_test.c.i:
+	$(MAKE) -f CMakeFiles\ex3.dir\build.make CMakeFiles/ex3.dir/tests/grade_test.c.i
+.PHONY : tests/grade_test.c.i
+
+tests/grade_test.s: tests/grade_test.c.s
+
+.PHONY : tests/grade_test.s
+
+# target to generate assembly for a file
+tests/grade_test.c.s:
+	$(MAKE) -f CMakeFiles\ex3.dir\build.make CMakeFiles/ex3.dir/tests/grade_test.c.s
+.PHONY : tests/grade_test.c.s
+
+tests/semester_test.obj: tests/semester_test.c.obj
+
+.PHONY : tests/semester_test.obj
+
+# target to build an object file
+tests/semester_test.c.obj:
+	$(MAKE) -f CMakeFiles\ex3.dir\build.make CMakeFiles/ex3.dir/tests/semester_test.c.obj
+.PHONY : tests/semester_test.c.obj
+
+tests/semester_test.i: tests/semester_test.c.i
+
+.PHONY : tests/semester_test.i
+
+# target to preprocess a source file
+tests/semester_test.c.i:
+	$(MAKE) -f CMakeFiles\ex3.dir\build.make CMakeFiles/ex3.dir/tests/semester_test.c.i
+.PHONY : tests/semester_test.c.i
+
+tests/semester_test.s: tests/semester_test.c.s
+
+.PHONY : tests/semester_test.s
+
+# target to generate assembly for a file
+tests/semester_test.c.s:
+	$(MAKE) -f CMakeFiles\ex3.dir\build.make CMakeFiles/ex3.dir/tests/semester_test.c.s
+.PHONY : tests/semester_test.c.s
+
+tests/student_test.obj: tests/student_test.c.obj
+
+.PHONY : tests/student_test.obj
+
+# target to build an object file
+tests/student_test.c.obj:
+	$(MAKE) -f CMakeFiles\ex3.dir\build.make CMakeFiles/ex3.dir/tests/student_test.c.obj
+.PHONY : tests/student_test.c.obj
+
+tests/student_test.i: tests/student_test.c.i
+
+.PHONY : tests/student_test.i
+
+# target to preprocess a source file
+tests/student_test.c.i:
+	$(MAKE) -f CMakeFiles\ex3.dir\build.make CMakeFiles/ex3.dir/tests/student_test.c.i
+.PHONY : tests/student_test.c.i
+
+tests/student_test.s: tests/student_test.c.s
+
+.PHONY : tests/student_test.s
+
+# target to generate assembly for a file
+tests/student_test.c.s:
+	$(MAKE) -f CMakeFiles\ex3.dir\build.make CMakeFiles/ex3.dir/tests/student_test.c.s
+.PHONY : tests/student_test.c.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -281,6 +389,18 @@ help:
 	@echo ... student.obj
 	@echo ... student.i
 	@echo ... student.s
+	@echo ... tests/course_manager_test.obj
+	@echo ... tests/course_manager_test.i
+	@echo ... tests/course_manager_test.s
+	@echo ... tests/grade_test.obj
+	@echo ... tests/grade_test.i
+	@echo ... tests/grade_test.s
+	@echo ... tests/semester_test.obj
+	@echo ... tests/semester_test.i
+	@echo ... tests/semester_test.s
+	@echo ... tests/student_test.obj
+	@echo ... tests/student_test.i
+	@echo ... tests/student_test.s
 .PHONY : help
 
 

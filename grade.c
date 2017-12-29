@@ -1,7 +1,6 @@
 #include "grade.h"
 #include <string.h>
 #include <stdlib.h>
-#include "assert.h"
 
 typedef struct grade_t {
     int course_id;
@@ -25,9 +24,9 @@ static bool parsePoints(char* points, int* number, int* partial) {
     *partial = 0; // if there is no '.' the partial part is 0
     int number_part_length = (int)strlen(points);
     // check the partial part (if exists)
-    if (number_part_length > 1 && points[strlen(points) - 1] == '.') {
-        if (points[strlen(points)] != '0' && points[strlen(points)] != '5') return false;
-        *partial = points[strlen(points)] - '0';
+    if (number_part_length > 1 && points[strlen(points) - 2] == '.') {
+        if (points[strlen(points) - 1] != '0' && points[strlen(points) - 1] != '5') return false;
+        *partial = points[strlen(points) - 1] - '0';
         number_part_length -= 2;
     }
     // X part must not be empty
@@ -115,6 +114,7 @@ int gradeCompare(Grade grade1, Grade grade2) {
  * true if the grade is grade of the given course and false otherwise
  */
 bool isGradeIsForCourse(ListElement grade, ListFilterKey course_id) {
+    if (grade == NULL || course_id == NULL) return false;
     return ((Grade)grade)->course_id == *(int*)course_id;
 }
 
@@ -172,8 +172,8 @@ int getCoursePointsX2(Grade grade) {
  * GRADE_OK - otherwise
  */
 GradeResult gradeUpdateGradeNumber(Grade grade, int new_grade) {
-    if (new_grade < 0 || new_grade > 100) return GRADE_INVALID_PARAMETER;
     if (grade == NULL) return GRADE_NULL_ARGUMENT;
+    if (new_grade < 0 || new_grade > 100) return GRADE_INVALID_PARAMETER;
     grade->grade_number = new_grade;
     return GRADE_OK;
 }
@@ -205,7 +205,7 @@ Grade gradeCopy(Grade grade) {
  * @param output_channel - the channel to print the info to
  */
 void gradePrintInfo(Grade grade, FILE* output_channel) {
-    assert(grade != NULL);
+    if (grade == NULL || output_channel == NULL) return;
     mtmPrintGradeInfo(output_channel, grade->course_id, getCoursePointsX2(grade), grade->grade_number);
 }
 
