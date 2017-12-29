@@ -41,7 +41,7 @@ GradeResult gradeCreate(int course_id, char* points, int grade_number,int semest
  * 	NULL if a NULL was sent or a memory allocation failed.
  * 	A Grade with the same data as given grade otherwise.
  */
-Grade gradeCopy(Grade grade);
+ListElement gradeCopy(ListElement grade);
 
 /**
  * gradeCompare - compares between 2 grades.
@@ -64,7 +64,7 @@ int gradeCompare(Grade grade1, Grade grade2);
  * @return
  * true if the grade is grade of the given course and false otherwise
  */
-bool isGradeIsForCourse(ListElement grade, ListFilterKey course_id);
+bool isGradeIsForCourse(Grade grade, int course_id);
 
 /**
  * getGradeNumber - return the grade in given Grade object
@@ -117,6 +117,6 @@ void gradePrintInfo(Grade grade, FILE* output_channel);
  * @param grade - the grade to destroy
  * if grade is NULL nothing will be done
  */
-void gradeDestroy(Grade grade);
+void gradeDestroy(ListElement grade);
 
 #endif //EX3_GRADE_H

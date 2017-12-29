@@ -40,7 +40,7 @@ StudentResult studentCreate(int id, char* firstName, char* lastName, Student *st
  * 	NULL if a NULL was sent or a memory allocation failed.
  * 	A Student with the same data as given student otherwise.
  */
-Student studentCopy(Student student);
+SetElement studentCopy(SetElement student);
 
 /**
  * studentCompare - compare between 2 students by their id number
@@ -52,7 +52,7 @@ Student studentCopy(Student student);
  * -1 if student2's id is bigger
  * 0 if both student ids are the same
  */
-int studentCompare(Student student1, Student student2);
+int studentCompare(SetElement student1, SetElement student2);
 
 /**
  * getStudentFromSet - return the student object of the student with given id from given set.
@@ -269,5 +269,5 @@ void studentPrintName(Student student, FILE* output_channel);
  * @param student - the student object to deallocate.
  * If student is NULL nothing will be done
  */
-void studentDestroy(Student student);
+void studentDestroy(SetElement student);
 #endif //EX3_STUDENT_H

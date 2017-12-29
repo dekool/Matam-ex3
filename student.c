@@ -15,7 +15,7 @@ typedef struct student_t {
     Set friends; // set of the students' ids
     Set pendingFriendRequests; // set of the students' ids
     Set semesters;
-};
+} student_t;
 
 /**
 * studentCreate: creates new student (and allocates memory for all it's details).
@@ -64,7 +64,7 @@ StudentResult studentCreate(int id, char* firstName, char* lastName, Student *st
         free(new_student);
         return STUDENT_OUT_OF_MEMORY;
     }
-    new_student->semesters = setCreate((SetElement)semesterCopy, (SetElement)semesterDestroy, (SetElement)semesterCompare);
+    new_student->semesters = setCreate(semesterCopy, semesterDestroy, semesterCompare);
     if (new_student->semesters == NULL) {
         free(new_student->firstName);
         free(new_student->lastName);
@@ -85,32 +85,32 @@ StudentResult studentCreate(int id, char* firstName, char* lastName, Student *st
  * 	NULL if a NULL was sent or a memory allocation failed.
  * 	A Student with the same data as given student otherwise.
  */
-Student studentCopy(Student student) {
+SetElement studentCopy(SetElement student) {
     if (student == NULL) return NULL;
     Student new_student = (Student) malloc(sizeof(*new_student));
     if (new_student == NULL) return NULL;
-    new_student->id = student->id;
-    new_student->firstName = (char*) malloc(strlen(student->firstName) + 1);
+    new_student->id = ((Student)student)->id;
+    new_student->firstName = (char*) malloc(strlen(((Student)student)->firstName) + 1);
     if (new_student->firstName == NULL) {
         free(new_student);
         return NULL;
     }
-    strcpy(new_student->firstName, student->firstName);
-    new_student->lastName = (char*) malloc(strlen(student->lastName) + 1);
+    strcpy(new_student->firstName, ((Student)student)->firstName);
+    new_student->lastName = (char*) malloc(strlen(((Student)student)->lastName) + 1);
     if (new_student->lastName == NULL) {
         free(new_student->firstName);
         free(new_student);
         return NULL;
     }
-    strcpy(new_student->lastName, student->lastName);
-    new_student->friends = setCopy(student->friends);
+    strcpy(new_student->lastName, ((Student)student)->lastName);
+    new_student->friends = setCopy(((Student)student)->friends);
     if (new_student->friends == NULL) {
         free(new_student->firstName);
         free(new_student->lastName);
         free(new_student);
         return NULL;
     }
-    new_student->pendingFriendRequests = setCopy(student->pendingFriendRequests);
+    new_student->pendingFriendRequests = setCopy(((Student)student)->pendingFriendRequests);
     if (new_student->pendingFriendRequests == NULL) {
         free(new_student->firstName);
         free(new_student->lastName);
@@ -118,7 +118,7 @@ Student studentCopy(Student student) {
         free(new_student);
         return NULL;
     }
-    new_student->semesters = setCopy(student->semesters);
+    new_student->semesters = setCopy(((Student)student)->semesters);
     if (new_student->semesters == NULL) {
         free(new_student->firstName);
         free(new_student->lastName);
@@ -140,12 +140,12 @@ Student studentCopy(Student student) {
  * -1 if student2's id is bigger
  * 0 if both student ids are the same
  */
-int studentCompare(Student student1, Student student2) {
+int studentCompare(SetElement student1, SetElement student2) {
     assert (student1 != NULL && student2 != NULL);
-    if (student1->id == student2->id) {
+    if (((Student)student1)->id == ((Student)student2)->id) {
         return 0;
     }
-    if (student1->id > student2->id) {
+    if (((Student)student1)->id > ((Student)student2)->id) {
         return 1;
     }
     // only option left - student2's id is bigger
@@ -462,6 +462,7 @@ static StudentResult studentGetAllCoursesSet(Student student, Set *set) {
                 return STUDENT_OUT_OF_MEMORY;
             }
         }
+        setDestroy(semester_courses);
     }
     *set = courses;
     return STUDENT_OK;
@@ -844,11 +845,12 @@ void studentPrintName(Student student, FILE* output_channel) {
  * @param student - the student object to deallocate
  * If student is NULL nothing will be done
  */
-void studentDestroy(Student student) {
+void studentDestroy(SetElement student) {
     if (student == NULL) return;
-    free(student->firstName);
-    free(student->lastName);
-    setDestroy(student->friends);
-    setDestroy(student->pendingFriendRequests);
-    free(student);
+    free(((Student)student)->firstName);
+    free(((Student)student)->lastName);
+    setDestroy(((Student)student)->friends);
+    setDestroy(((Student)student)->pendingFriendRequests);
+    setDestroy(((Student)student)->semesters);
+    free((Student)student);
 }

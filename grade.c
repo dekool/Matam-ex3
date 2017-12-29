@@ -8,7 +8,7 @@ typedef struct grade_t {
     int course_points_partial;
     int grade_number;
     int semester_number;
-};
+} grade_t;
 
 /**
  * parsePoints - inner function. parses the char* points parameter into 2 ints -
@@ -113,9 +113,9 @@ int gradeCompare(Grade grade1, Grade grade2) {
  * @return
  * true if the grade is grade of the given course and false otherwise
  */
-bool isGradeIsForCourse(ListElement grade, ListFilterKey course_id) {
-    if (grade == NULL || course_id == NULL) return false;
-    return ((Grade)grade)->course_id == *(int*)course_id;
+bool isGradeIsForCourse(Grade grade, int course_id) {
+    if (grade == NULL) return false;
+    return ((grade)->course_id == course_id);
 }
 
 /**
@@ -186,16 +186,16 @@ GradeResult gradeUpdateGradeNumber(Grade grade, int new_grade) {
  * 	NULL if a NULL was sent or a memory allocation failed.
  * 	A Grade with the same data as given grade otherwise.
  */
-Grade gradeCopy(Grade grade) {
+ListElement gradeCopy(ListElement grade) {
     if (grade == NULL) return NULL;
 
     Grade new_grade = (Grade) malloc(sizeof(*new_grade));
     if (new_grade == NULL) return NULL;
-    new_grade->course_id = grade->course_id;
-    new_grade->course_points_integer = grade->course_points_integer;
-    new_grade->course_points_partial = grade->course_points_partial;
-    new_grade->grade_number = grade->grade_number;
-    new_grade->semester_number = grade->semester_number;
+    new_grade->course_id = ((Grade)grade)->course_id;
+    new_grade->course_points_integer = ((Grade)grade)->course_points_integer;
+    new_grade->course_points_partial = ((Grade)grade)->course_points_partial;
+    new_grade->grade_number = ((Grade)grade)->grade_number;
+    new_grade->semester_number = ((Grade)grade)->semester_number;
     return new_grade;
 }
 
@@ -214,6 +214,6 @@ void gradePrintInfo(Grade grade, FILE* output_channel) {
  * @param grade - the grade to destroy
  * if grade is NULL nothing will be done
  */
-void gradeDestroy(Grade grade) {
-    free(grade);
+void gradeDestroy(ListElement grade) {
+    free((Grade)grade);
 }

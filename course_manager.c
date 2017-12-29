@@ -14,7 +14,7 @@ typedef struct course_manager_t
 {
 Set students;
 Student logged_student;
-};
+} course_manager_t;
 
 /**
  * courseManagerCreate - creates a new empty course manager
@@ -25,7 +25,7 @@ Student logged_student;
 CourseManager courseManagerCreate() {
     CourseManager course_manager = (CourseManager) malloc(sizeof(*course_manager));
     if (course_manager == NULL) return NULL;
-    course_manager->students = setCreate((SetElement)studentCopy,(SetElement)studentDestroy,(SetElement)studentCompare);
+    course_manager->students = setCreate(studentCopy,studentDestroy,studentCompare);
     if (course_manager->students == NULL) {
         free(course_manager);
         return NULL;
@@ -34,7 +34,6 @@ CourseManager courseManagerCreate() {
     return course_manager;
 }
 
-/**
 /**
  * addStudent - adds new student to the system
  * @param course_manager - the course manager to add the student to
@@ -58,6 +57,7 @@ CourseManagerResult addStudent(CourseManager course_manager, int id, char* first
         return COURSE_MANAGER_INVALID_PARAMETERS;
     }
     SetResult add_result = setAdd(course_manager->students, (SetElement)student);
+    printf("add result: %d", add_result);
     studentDestroy(student);
     switch(add_result) {
         case SET_ITEM_ALREADY_EXISTS:

@@ -10,6 +10,7 @@ static bool testGradeCreate() {
     ASSERT_TEST(getCoursePointsX2(grade_test) == 7);
     ASSERT_TEST(getCourseId(grade_test) == 11071);
     ASSERT_TEST(getSemester(grade_test) == 1);
+    gradeDestroy(grade_test);
 
     grade_test = NULL;
     ASSERT_TEST(gradeCreate(11071, "3.0", 95, 1, &grade_test) == GRADE_OK);
@@ -17,6 +18,7 @@ static bool testGradeCreate() {
     ASSERT_TEST(getCoursePointsX2(grade_test) == 6);
     ASSERT_TEST(getCourseId(grade_test) == 11071);
     ASSERT_TEST(getSemester(grade_test) == 1);
+    gradeDestroy(grade_test);
 
     grade_test = NULL;
     ASSERT_TEST(gradeCreate(11071, "3", 95, 1, &grade_test) == GRADE_OK);
@@ -24,40 +26,50 @@ static bool testGradeCreate() {
     ASSERT_TEST(getCoursePointsX2(grade_test) == 6);
     ASSERT_TEST(getCourseId(grade_test) == 11071);
     ASSERT_TEST(getSemester(grade_test) == 1);
+    gradeDestroy(grade_test);
 
     grade_test = NULL;
     ASSERT_TEST(gradeCreate(11071, NULL, 95, 1, &grade_test) == GRADE_NULL_ARGUMENT);
+    gradeDestroy(grade_test);
 
     grade_test = NULL;
     ASSERT_TEST(gradeCreate(-2, "3.5", 95, 1, &grade_test) == GRADE_INVALID_PARAMETER);
+    gradeDestroy(grade_test);
 
     grade_test = NULL;
     ASSERT_TEST(gradeCreate(2000000000, "3.5", 95, 1, &grade_test) == GRADE_INVALID_PARAMETER);
+    gradeDestroy(grade_test);
 
     grade_test = NULL;
     ASSERT_TEST(gradeCreate(11071, "3.55", 95, 1, &grade_test) == GRADE_INVALID_PARAMETER);
+    gradeDestroy(grade_test);
 
     grade_test = NULL;
     ASSERT_TEST(gradeCreate(11071, "-1.5", 95, 1, &grade_test) == GRADE_INVALID_PARAMETER);
+    gradeDestroy(grade_test);
 
     grade_test = NULL;
     ASSERT_TEST(gradeCreate(11071, "3.8", 95, 1, &grade_test) == GRADE_INVALID_PARAMETER);
+    gradeDestroy(grade_test);
 
     grade_test = NULL;
     ASSERT_TEST(gradeCreate(11071, "3.5", 105, 1, &grade_test) == GRADE_INVALID_PARAMETER);
+    gradeDestroy(grade_test);
 
     grade_test = NULL;
     ASSERT_TEST(gradeCreate(11071, "3.5", -2, 1, &grade_test) == GRADE_INVALID_PARAMETER);
+    gradeDestroy(grade_test);
 
     grade_test = NULL;
     ASSERT_TEST(gradeCreate(11071, "3.5", 95, -1, &grade_test) == GRADE_INVALID_PARAMETER);
+    gradeDestroy(grade_test);
 
     gradeDestroy(grade_test);
     return true;
 }
 
 static bool testGradeCopy() {
-    //Grade gradeCopy(Grade grade);
+    //ListElement gradeCopy(ListElement grade);
     Grade grade_test = NULL;
     ASSERT_TEST(gradeCreate(11071, "3.5", 95, 1, &grade_test) == GRADE_OK);
     ASSERT_TEST(getGradeNumber(grade_test) == 95);
@@ -73,11 +85,13 @@ static bool testGradeCopy() {
     ASSERT_TEST(getCourseId(grade_test) == 11071);
     ASSERT_TEST(getSemester(grade_test) == 1);
 
+    gradeDestroy(grade_test);
+    gradeDestroy(grade_test_copy);
+
     grade_test = NULL;
     grade_test_copy = gradeCopy(grade_test);
     ASSERT_TEST(grade_test_copy == NULL);
 
-    gradeDestroy(grade_test);
     return true;
 }
 
@@ -99,30 +113,35 @@ static bool testGradeCompare() {
     compare_result = gradeCompare(grade_test3, grade_test2);
     ASSERT_TEST(compare_result == 0);
 
+    gradeDestroy(grade_test3);
     ASSERT_TEST(gradeCreate(11071, "3.5", 100, 1, &grade_test3) == GRADE_OK);
     compare_result = gradeCompare(grade_test3, grade_test1);
     ASSERT_TEST(compare_result == 1);
     compare_result = gradeCompare(grade_test1, grade_test3);
     ASSERT_TEST(compare_result == -1);
 
+    gradeDestroy(grade_test3);
     ASSERT_TEST(gradeCreate(11071, "3.5", 95, 2, &grade_test3) == GRADE_OK);
     compare_result = gradeCompare(grade_test3, grade_test1);
     ASSERT_TEST(compare_result == -1);
     compare_result = gradeCompare(grade_test1, grade_test3);
     ASSERT_TEST(compare_result == 1);
 
+    gradeDestroy(grade_test3);
     ASSERT_TEST(gradeCreate(11072, "3.5", 95, 1, &grade_test3) == GRADE_OK);
     compare_result = gradeCompare(grade_test3, grade_test1);
     ASSERT_TEST(compare_result == -1);
     compare_result = gradeCompare(grade_test1, grade_test3);
     ASSERT_TEST(compare_result == 1);
 
+    gradeDestroy(grade_test3);
     ASSERT_TEST(gradeCreate(11072, "3.5", 100, 2, &grade_test3) == GRADE_OK);
     compare_result = gradeCompare(grade_test3, grade_test1);
     ASSERT_TEST(compare_result == 1);
     compare_result = gradeCompare(grade_test1, grade_test3);
     ASSERT_TEST(compare_result == -1);
 
+    gradeDestroy(grade_test3);
     grade_test3 = NULL;
     compare_result = gradeCompare(grade_test3, grade_test1);
     ASSERT_TEST(compare_result == -1);
@@ -141,10 +160,9 @@ static bool testIsGradeIsForCourse() {
     ASSERT_TEST(gradeCreate(11071, "3.5", 95, 1, &grade_test) == GRADE_OK);
 
     int course_id1 = 11071, course_id2 = 11072;
-    ASSERT_TEST(isGradeIsForCourse((ListElement)grade_test, (ListFilterKey)&course_id1) == true);
-    ASSERT_TEST(isGradeIsForCourse((ListElement)grade_test, (ListFilterKey)&course_id2) == false);
-    ASSERT_TEST(isGradeIsForCourse((ListElement)NULL, (ListFilterKey)&course_id1) == false);
-    ASSERT_TEST(isGradeIsForCourse((ListElement)grade_test, (ListFilterKey)NULL) == false);
+    ASSERT_TEST(isGradeIsForCourse(grade_test, course_id1) == true);
+    ASSERT_TEST(isGradeIsForCourse(grade_test, course_id2) == false);
+    ASSERT_TEST(isGradeIsForCourse(NULL, course_id1) == false);
 
     gradeDestroy(grade_test);
     return true;
@@ -237,7 +255,5 @@ int runGradeTests() {
     RUN_TEST(testGradeUpdateGradeNumber);
     RUN_TEST(testGradePrintInfo);
 
-    int final;
-    scanf("%d", &final);
     return 0;
 }

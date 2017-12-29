@@ -22,58 +22,44 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="course_manager.c" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/course_manager.c">
+      <file leaf-file-name="semester_test.c" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tests/semester_test.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="214">
-              <caret line="384" column="38" lean-forward="false" selection-start-line="384" selection-start-column="38" selection-end-line="384" selection-end-column="38" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="course_manager.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/course_manager.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3689">
-              <caret line="217" column="106" lean-forward="false" selection-start-line="217" selection-start-column="93" selection-end-line="217" selection-end-column="106" />
+            <state relative-caret-position="175">
+              <caret line="326" column="0" lean-forward="false" selection-start-line="326" selection-start-column="0" selection-end-line="326" selection-end-column="0" />
               <folding>
-                <element signature="e#59#76#0" expanded="true" />
+                <element signature="e#0#27#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="list_mtm.c" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/list/list_mtm.c">
+      <file leaf-file-name="semester.c" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/semester.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="155">
+              <caret line="42" column="45" lean-forward="false" selection-start-line="42" selection-start-column="39" selection-end-line="42" selection-end-column="45" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="course_manager_test.c" pinned="false" current-in-tab="false">
+      <file leaf-file-name="course_manager_test.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tests/course_manager_test.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="12274">
-              <caret line="722" column="0" lean-forward="false" selection-start-line="722" selection-start-column="0" selection-end-line="722" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#19#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="393">
+              <caret line="793" column="4" lean-forward="false" selection-start-line="793" selection-start-column="4" selection-end-line="793" selection-end-column="4" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="list_mtm_test.c" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/tests/list_mtm_test.c">
+      <file leaf-file-name="list.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/list.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7531">
-              <caret line="443" column="34" lean-forward="false" selection-start-line="443" selection-start-column="34" selection-end-line="443" selection-end-column="34" />
-              <folding>
-                <element signature="e#0#20#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="156">
+              <caret line="145" column="5" lean-forward="false" selection-start-line="145" selection-start-column="5" selection-end-line="145" selection-end-column="5" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -81,42 +67,10 @@
       <file leaf-file-name="student.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/student.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="49">
-              <caret line="836" column="0" lean-forward="false" selection-start-line="836" selection-start-column="0" selection-end-line="836" selection-end-column="0" />
+            <state relative-caret-position="403">
+              <caret line="464" column="8" lean-forward="false" selection-start-line="464" selection-start-column="8" selection-end-line="464" selection-end-column="37" />
               <folding>
                 <element signature="e#0#20#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="mtm_ex3.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mtm_ex3.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="629">
-              <caret line="37" column="0" lean-forward="false" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="19" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="student.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/student.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="595">
-              <caret line="35" column="40" lean-forward="false" selection-start-line="35" selection-start-column="37" selection-end-line="35" selection-end-column="40" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="student_test.c" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tests/student_test.c">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="9911">
-              <caret line="583" column="19" lean-forward="false" selection-start-line="583" selection-start-column="19" selection-end-line="583" selection-end-column="19" />
-              <folding>
-                <element signature="e#0#19#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -125,10 +79,54 @@
       <file leaf-file-name="grade.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grade.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1513">
-              <caret line="89" column="4" lean-forward="false" selection-start-line="89" selection-start-column="4" selection-end-line="89" selection-end-column="4" />
+            <state relative-caret-position="155">
+              <caret line="191" column="36" lean-forward="false" selection-start-line="191" selection-start-column="30" selection-end-line="191" selection-end-column="36" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="student_test.c" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tests/student_test.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="155">
+              <caret line="594" column="0" lean-forward="false" selection-start-line="594" selection-start-column="0" selection-end-line="594" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#19#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="grade.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grade.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="165">
+              <caret line="66" column="5" lean-forward="false" selection-start-line="66" selection-start-column="5" selection-end-line="66" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test_utilities.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tests/test_utilities.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="114">
+              <caret line="23" column="14" lean-forward="false" selection-start-line="23" selection-start-column="14" selection-end-line="23" selection-end-column="14" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="grade_test.c" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tests/grade_test.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="172">
+              <caret line="245" column="0" lean-forward="true" selection-start-line="245" selection-start-column="0" selection-end-line="245" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#27#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -138,15 +136,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>full</find>
-      <find>grade</find>
-      <find>studentAddGrade</find>
-      <find>assert</find>
-      <find>total_failed_course_points_x2</find>
-      <find>total_course_points_x2</find>
-      <find>MIN_SPORT_COURSE_ID</find>
-      <find>studentGetAllCoursesSet</find>
-      <find>addEffectiveSheetCourseGradeAndPointsX2</find>
       <find>studentPrintGradesArray</find>
       <find>IfLo</find>
       <find>insertGradeIntoArrayIfLower</find>
@@ -168,10 +157,17 @@
       <find>insertGradeIntoArrayIfHigher</find>
       <find>courseManagerPrintFriendsArray</find>
       <find>234107</find>
+      <find>gradeCompare</find>
+      <find>((Grade)grade2)</find>
+      <find>SetElement</find>
+      <find>testComp</find>
+      <find>testStudentCompare</find>
+      <find>listFilter</find>
+      <find>isGradeIsForCourse</find>
+      <find>remove</find>
+      <find>malloc</find>
     </findStrings>
     <replaceStrings>
-      <replace>add_semester_result</replace>
-      <replace>add_grade_result</replace>
       <replace>create_result</replace>
       <replace>logged_in</replace>
       <replace>Semester</replace>
@@ -200,6 +196,8 @@
       <replace>COURSE_MANAGER</replace>
       <replace>114071</replace>
       <replace>addGrade(course_manager_test,</replace>
+      <replace>grade1</replace>
+      <replace>grade2</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -212,21 +210,25 @@
         <option value="$PROJECT_DIR$/semester_grade.h" />
         <option value="$PROJECT_DIR$/semester_grade.c" />
         <option value="$PROJECT_DIR$/course.c" />
-        <option value="$PROJECT_DIR$/grade.h" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/list/list_mtm_test.c" />
         <option value="$PROJECT_DIR$/main.c" />
         <option value="$PROJECT_DIR$/grade_test.c" />
-        <option value="$PROJECT_DIR$/semester.h" />
-        <option value="$PROJECT_DIR$/grade.c" />
-        <option value="$PROJECT_DIR$/semester.c" />
-        <option value="$PROJECT_DIR$/student.h" />
         <option value="$PROJECT_DIR$/semester_test.c" />
         <option value="$PROJECT_DIR$/course_manager.h" />
         <option value="$PROJECT_DIR$/student_test.c" />
-        <option value="$PROJECT_DIR$/student.c" />
         <option value="$PROJECT_DIR$/course_manager_test.c" />
+        <option value="$PROJECT_DIR$/student.h" />
+        <option value="$PROJECT_DIR$/semester.h" />
+        <option value="$PROJECT_DIR$/tests/node_test.c" />
         <option value="$PROJECT_DIR$/course_manager.c" />
+        <option value="$PROJECT_DIR$/grade.h" />
+        <option value="$PROJECT_DIR$/grade.c" />
+        <option value="$PROJECT_DIR$/semester.c" />
+        <option value="$PROJECT_DIR$/tests/semester_test.c" />
+        <option value="$PROJECT_DIR$/tests/grade_test.c" />
+        <option value="$PROJECT_DIR$/student.c" />
+        <option value="$PROJECT_DIR$/tests/student_test.c" />
         <option value="$PROJECT_DIR$/tests/course_manager_test.c" />
       </list>
     </option>
@@ -238,7 +240,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="50" />
     <option name="width" value="1846" />
     <option name="height" value="1264" />
@@ -274,6 +276,11 @@
             <path>
               <item name="ex3" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
               <item name="ex3" type="462c0819:PsiDirectoryNode" />
+              <item name="libmtm" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ex3" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
+              <item name="ex3" type="462c0819:PsiDirectoryNode" />
               <item name="list" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -290,6 +297,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
+    <property name="SearchEverywhereHistoryKey" value="font&#9;ACTION&#9;EditorIncreaseFontSize" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -324,6 +332,9 @@
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
   </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="397f77d9-682b-4e67-85aa-a57e7234e66c" name="Default" comment="" />
@@ -333,26 +344,27 @@
       <updated>1513412133371</updated>
       <workItem from="1513412135368" duration="118705000" />
       <workItem from="1514031987348" duration="47921000" />
-      <workItem from="1514537415570" duration="2098000" />
+      <workItem from="1514537415570" duration="15843000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="168724000" />
+    <option name="totallyTimeSpent" value="182469000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-6" y="-6" width="1381" height="885" extended-state="6" />
+    <frame x="-6" y="-6" width="1381" height="885" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24945135" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24945135" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -361,7 +373,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -396,7 +407,7 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="406" />
+      <option name="time" value="413" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -432,7 +443,7 @@
         <state relative-caret-position="12206">
           <caret line="718" column="18" lean-forward="false" selection-start-line="718" selection-start-column="18" selection-end-line="718" selection-end-column="18" />
           <folding>
-            <element signature="e#0#19#0" expanded="true" />
+            <element signature="e#0#19#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -497,9 +508,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4403">
           <caret line="259" column="84" lean-forward="false" selection-start-line="259" selection-start-column="84" selection-end-line="259" selection-end-column="84" />
-          <folding>
-            <element signature="e#0#21#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -517,6 +526,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3383">
           <caret line="199" column="24" lean-forward="false" selection-start-line="199" selection-start-column="24" selection-end-line="199" selection-end-column="24" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -552,6 +562,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" column="4" lean-forward="false" selection-start-line="5" selection-start-column="4" selection-end-line="6" selection-end-column="24" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -559,7 +570,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="7531">
           <caret line="443" column="34" lean-forward="false" selection-start-line="443" selection-start-column="34" selection-end-line="443" selection-end-column="34" />
-          <folding />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -572,13 +585,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/list_mtm.h" />
-    <entry file="file://$PROJECT_DIR$/list/list_example_test.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/semester_grade.c" />
     <entry file="file://$PROJECT_DIR$/semester_grade.h" />
     <entry file="file://$PROJECT_DIR$/course.c" />
@@ -598,77 +604,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grade.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="223">
-          <caret line="112" column="0" lean-forward="false" selection-start-line="112" selection-start-column="0" selection-end-line="112" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main.c">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" column="4" lean-forward="false" selection-start-line="5" selection-start-column="4" selection-end-line="6" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/test_utilities.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-          <folding>
-            <element signature="e#53#73#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/grade_test.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="393">
-          <caret line="227" column="17" lean-forward="false" selection-start-line="227" selection-start-column="17" selection-end-line="227" selection-end-column="17" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/semester.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="86">
-          <caret line="130" column="43" lean-forward="false" selection-start-line="130" selection-start-column="37" selection-end-line="130" selection-end-column="43" />
-          <folding>
-            <element signature="e#47#63#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/set.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2164">
-          <caret line="199" column="24" lean-forward="false" selection-start-line="199" selection-start-column="24" selection-end-line="199" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/semester_test.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2617">
-          <caret line="102" column="9" lean-forward="false" selection-start-line="102" selection-start-column="4" selection-end-line="102" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/list.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="335">
-          <caret line="427" column="38" lean-forward="false" selection-start-line="427" selection-start-column="38" selection-end-line="427" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/semester.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="103">
-          <caret line="199" column="0" lean-forward="false" selection-start-line="199" selection-start-column="0" selection-end-line="199" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#21#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -690,34 +630,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grade.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1513">
-          <caret line="89" column="4" lean-forward="false" selection-start-line="89" selection-start-column="4" selection-end-line="89" selection-end-column="4" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/student_test.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="9911">
-          <caret line="583" column="19" lean-forward="false" selection-start-line="583" selection-start-column="19" selection-end-line="583" selection-end-column="19" />
-          <folding>
-            <element signature="e#0#19#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/student.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="35" column="40" lean-forward="false" selection-start-line="35" selection-start-column="37" selection-end-line="35" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mtm_ex3.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="629">
@@ -726,38 +638,152 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/student.c">
+    <entry file="file://$PROJECT_DIR$/student.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="49">
-          <caret line="836" column="0" lean-forward="false" selection-start-line="836" selection-start-column="0" selection-end-line="836" selection-end-column="0" />
+        <state relative-caret-position="393">
+          <caret line="273" column="0" lean-forward="true" selection-start-line="273" selection-start-column="0" selection-end-line="273" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/semester.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="210" column="32" lean-forward="false" selection-start-line="210" selection-start-column="32" selection-end-line="210" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/list/list_example_test.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/list_mtm_test.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="145">
+          <caret line="443" column="34" lean-forward="false" selection-start-line="443" selection-start-column="34" selection-end-line="443" selection-end-column="34" />
           <folding>
             <element signature="e#0#20#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/tests/node_test.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="33" column="0" lean-forward="true" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#19#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/course_manager.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="384" column="38" lean-forward="false" selection-start-line="384" selection-start-column="38" selection-end-line="384" selection-end-column="38" />
+        <state relative-caret-position="335">
+          <caret line="57" column="5" lean-forward="true" selection-start-line="57" selection-start-column="5" selection-end-line="57" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/course_manager_test.c">
+    <entry file="file://$PROJECT_DIR$/set.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="12274">
-          <caret line="722" column="0" lean-forward="false" selection-start-line="722" selection-start-column="0" selection-end-line="722" selection-end-column="0" />
+        <state relative-caret-position="-688">
+          <caret line="40" column="28" lean-forward="true" selection-start-line="40" selection-start-column="28" selection-end-line="40" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/list.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="145" column="5" lean-forward="false" selection-start-line="145" selection-start-column="5" selection-end-line="145" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/test_utilities.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="23" column="14" lean-forward="false" selection-start-line="23" selection-start-column="14" selection-end-line="23" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/semester.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="42" column="45" lean-forward="false" selection-start-line="42" selection-start-column="39" selection-end-line="42" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grade.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="66" column="5" lean-forward="false" selection-start-line="66" selection-start-column="5" selection-end-line="66" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grade.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="191" column="36" lean-forward="false" selection-start-line="191" selection-start-column="30" selection-end-line="191" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/grade_test.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="172">
+          <caret line="245" column="0" lean-forward="true" selection-start-line="245" selection-start-column="0" selection-end-line="245" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#27#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/semester_test.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="326" column="0" lean-forward="false" selection-start-line="326" selection-start-column="0" selection-end-line="326" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#27#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/student.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="403">
+          <caret line="464" column="8" lean-forward="false" selection-start-line="464" selection-start-column="8" selection-end-line="464" selection-end-column="37" />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/student_test.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="594" column="0" lean-forward="false" selection-start-line="594" selection-start-column="0" selection-end-line="594" selection-end-column="0" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/list_mtm_test.c">
+    <entry file="file://$PROJECT_DIR$/tests/course_manager_test.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7531">
-          <caret line="443" column="34" lean-forward="false" selection-start-line="443" selection-start-column="34" selection-end-line="443" selection-end-column="34" />
+        <state relative-caret-position="393">
+          <caret line="793" column="4" lean-forward="false" selection-start-line="793" selection-start-column="4" selection-end-line="793" selection-end-column="4" />
           <folding />
         </state>
       </provider>

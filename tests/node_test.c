@@ -50,7 +50,7 @@ static bool testNode() {
     return true;
 }
 
-int main() {
+int runNodeTests() {
     RUN_TEST(testNode);
 
     return 0;

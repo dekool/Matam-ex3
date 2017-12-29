@@ -772,6 +772,7 @@ static bool testSendFacultyReqeust() {
 }
 
 
+//int runCourseManagerTests() {
 int main() {
     RUN_TEST(testCourseManagerCreate);
     RUN_TEST(testAddStudent);
@@ -790,8 +791,6 @@ int main() {
     RUN_TEST(testPrintWorstGrades);
     RUN_TEST(testPrintReferenceSources);
     RUN_TEST(testSendFacultyReqeust);
-
-    int final;
-    scanf("%d", &final);
+    
     return 0;
 }

@@ -6,7 +6,7 @@
 typedef struct semester_t {
     int semester_number;
     List grades;
-};
+} semester_t;
 
 /**
  * semesterCreate - creates a new semester grade
@@ -22,7 +22,7 @@ SemesterResult semesterCreate(int semester_number, Semester *semester) {
     Semester new_semester = (Semester) malloc(sizeof(*new_semester));
     if (new_semester == NULL) return SEMESTER_OUT_OF_MEMORY;
     new_semester->semester_number = semester_number;
-    new_semester->grades = listCreate((ListElement)gradeCopy, (ListElement)gradeDestroy);
+    new_semester->grades = listCreate(gradeCopy, gradeDestroy);
     if (new_semester->grades == NULL) {
         free(new_semester);
         return SEMESTER_OUT_OF_MEMORY;
@@ -38,12 +38,12 @@ SemesterResult semesterCreate(int semester_number, Semester *semester) {
  * NULL if a NULL was sent or a memory allocation failed.
  * A Semester with the same data as given semester otherwise.
  */
-Semester semesterCopy(Semester semester) {
-    if (semester == NULL || semester->grades == NULL) return NULL;
+SetElement semesterCopy(SetElement semester) {
+    if (semester == NULL || ((Semester)semester)->grades == NULL) return NULL;
     Semester new_semester = (Semester) malloc(sizeof(*new_semester));
     if (new_semester == NULL) return NULL;
-    new_semester->semester_number = semester->semester_number;
-    new_semester->grades = listCopy(semester->grades);
+    new_semester->semester_number = ((Semester)semester)->semester_number;
+    new_semester->grades = listCopy(((Semester)semester)->grades);
     if (new_semester->grades == NULL) {
         free(new_semester);
         return NULL;
@@ -60,10 +60,10 @@ Semester semesterCopy(Semester semester) {
  * -1 - if semester2's semester number is bigger
  * 0 - if both semesters has the same semester number
  */
-int semesterCompare(Semester semester1, Semester semester2) {
+int semesterCompare(SetElement semester1, SetElement semester2) {
     assert(semester1 != NULL && semester2 != NULL);
-    if (semester1->semester_number > semester2->semester_number) return 1;
-    if (semester1->semester_number == semester2->semester_number) return 0;
+    if (((Semester)semester1)->semester_number > ((Semester)semester2)->semester_number) return 1;
+    if (((Semester)semester1)->semester_number == ((Semester)semester2)->semester_number) return 0;
     // only option left - semester2's id is bigger
     return -1;
 }
@@ -107,7 +107,7 @@ SemesterResult semesterAddGrade(Semester semester, int course_id, char* points, 
     if (create_result == GRADE_OUT_OF_MEMORY) return SEMESTER_OUT_OF_MEMORY;
     if (create_result == GRADE_INVALID_PARAMETER) return SEMESTER_INVALID_PARAMETER;
 
-    ListResult add_result = listInsertLast(semester->grades, new_grade);
+    ListResult add_result = listInsertLast(semester->grades, (ListElement)new_grade);
     gradeDestroy(new_grade);
     if (add_result == LIST_OUT_OF_MEMORY) return SEMESTER_OUT_OF_MEMORY;
     return SEMESTER_OK;
@@ -128,7 +128,7 @@ Grade semesterGetCourseLastGradeObject(Semester semester, int course_id) {
 
     Grade currentGrade = listGetFirst(semester->grades);
     while (currentGrade != NULL) {
-        if (isGradeIsForCourse(currentGrade, &course_id)) {
+        if (isGradeIsForCourse(currentGrade, course_id)) {
             last_grade =currentGrade;
         }
         currentGrade = listGetNext(semester->grades);
@@ -164,7 +164,7 @@ int semesterGetCourseBestGrade(Semester semester, int course_id) {
 
     Grade currentGrade = listGetFirst(semester->grades);
     while (currentGrade != NULL) {
-        if (isGradeIsForCourse(currentGrade, &course_id)) {
+        if (isGradeIsForCourse(currentGrade, course_id)) {
             if (getGradeNumber(currentGrade) > best_grade) {
                 best_grade = getGradeNumber(currentGrade);
             }
@@ -197,20 +197,27 @@ int semesterGetCoursePointsX2(Semester semester, int course_id) {
  * SEMESTER_OK - otherwise
  */
 SemesterResult semesterRemoveGrade(Semester semester, int course_id) {
-    List course_grade_list = listFilter(semester->grades, isGradeIsForCourse, &course_id);
-    if (course_grade_list == NULL) return SEMESTER_OUT_OF_MEMORY;
-    int number_of_grades = listGetSize(course_grade_list);
+    Grade currentGrade = (Grade)listGetFirst(semester->grades);
+    int number_of_grades = 0;
+    while (currentGrade != NULL) {
+        if (isGradeIsForCourse(currentGrade, course_id)) {
+            number_of_grades++;
+        }
+        currentGrade = (Grade)listGetNext(semester->grades);
+    }
     if (number_of_grades == 0) return  SEMESTER_COURSE_DOES_NOT_EXIST;
 
-    Grade currentGrade = listGetFirst(semester->grades);
+    //remove the last one
+    currentGrade = (Grade)listGetFirst(semester->grades);
     while (currentGrade != NULL) {
-        if (isGradeIsForCourse(currentGrade, &course_id)) {
+        if (isGradeIsForCourse(currentGrade, course_id)) {
             number_of_grades-=1;
             if (number_of_grades == 0) {
                 listRemoveCurrent(semester->grades);
+                break;
             }
         }
-        currentGrade = listGetNext(semester->grades);
+        currentGrade = (Grade)listGetNext(semester->grades);
     }
     return SEMESTER_OK;
 }
@@ -383,8 +390,8 @@ SemesterResult semesterPrintInfo(Semester semester, FILE* output_channel) {
  * @param semester - the semester to destroy
  * if semester is NULL nothing will be done
  */
-void semesterDestroy(Semester semester) {
+void semesterDestroy(SetElement semester) {
     if (semester == NULL) return;
-    listDestroy(semester->grades);
-    free(semester);
+    listDestroy(((Semester)semester)->grades);
+    free((Semester)semester);
 }

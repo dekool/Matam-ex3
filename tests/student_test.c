@@ -7,6 +7,9 @@ static bool testStudentCreate() {
     //StudentResult studentCreate(int id, char* firstName, char* lastName, Student *student);
     Student student_test = NULL;
     ASSERT_TEST(studentCreate(111111118, "Ariel", "Wershal", &student_test) == STUDENT_OK);
+    studentDestroy(student_test);
+
+    student_test = NULL;
     ASSERT_TEST(studentCreate(111111118, NULL, "Wershal", &student_test) == STUDENT_NULL_ARGUMENT);
     ASSERT_TEST(studentCreate(111111118, "Ariel", NULL, &student_test) == STUDENT_NULL_ARGUMENT);
     ASSERT_TEST(studentCreate(111111118, NULL, NULL, &student_test) == STUDENT_NULL_ARGUMENT);
@@ -18,7 +21,7 @@ static bool testStudentCreate() {
 }
 
 static bool testStudentCopy() {
-    //Student studentCopy(Student student);
+    //SetElement studentCopy(SetElement student);
     Student student_test = NULL;
     ASSERT_TEST(studentCreate(111111118, "Ariel", "Wershal", &student_test) == STUDENT_OK);
     Student student_test2 = NULL;
@@ -41,7 +44,7 @@ static bool testStudentCopy() {
 }
 
 static bool testStudentCompare() {
-    //int studentCompare(Student student1, Student student2);
+    //int studentCompare(SetElement student1, SetElement student2);
     Student student_test = NULL;
     ASSERT_TEST(studentCreate(111111118, "Ariel", "Wershal", &student_test) == STUDENT_OK);
     Student student_test2 = NULL;
@@ -66,7 +69,7 @@ static bool testGetStudentFromSet() {
     Student student_test2 = NULL;
     ASSERT_TEST(studentCreate(222222226, "Eran", "Channover", &student_test2) == STUDENT_OK);
 
-    Set students_set = setCreate((SetElement)studentCopy,(SetElement)studentDestroy,(SetElement)studentCompare);
+    Set students_set = setCreate(studentCopy,studentDestroy,studentCompare);
     ASSERT_TEST(setAdd(students_set, student_test) == SET_SUCCESS);
     ASSERT_TEST(setAdd(students_set, student_test2) == SET_SUCCESS);
 
@@ -79,8 +82,7 @@ static bool testGetStudentFromSet() {
 
     studentDestroy(student_test);
     studentDestroy(student_test2);
-    studentDestroy(student_test3);
-    studentDestroy(student_test4);
+    setDestroy(students_set);
     return true;
 }
 
@@ -297,7 +299,7 @@ static bool testRemoveStudentFromFriendsSet(){
     ASSERT_TEST(addFriendRequest(student_test, student_test2) == STUDENT_OK);
     ASSERT_TEST(addFriend(student_test2, student_test) == STUDENT_OK);
 
-    Set students_set = setCreate((SetElement)studentCopy,(SetElement)studentDestroy,(SetElement)studentCompare);
+    Set students_set = setCreate(studentCopy, studentDestroy, studentCompare);
     ASSERT_TEST(setAdd(students_set, student_test) == SET_SUCCESS);
     ASSERT_TEST(setAdd(students_set, student_test2) == SET_SUCCESS);
     ASSERT_TEST(setAdd(students_set, student_test3) == SET_SUCCESS);
@@ -614,7 +616,5 @@ int runAllStudentTests() {
     RUN_TEST(testStudentGetBestGradeInCourse);
     RUN_TEST(testStudentPrintName);
 
-    int final;
-    scanf("%d", &final);
     return 0;
 }

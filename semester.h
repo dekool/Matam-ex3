@@ -34,7 +34,7 @@ SemesterResult semesterCreate(int semester_number, Semester *semester);
  * NULL if a NULL was sent or a memory allocation failed.
  * A Semester with the same data as given semester otherwise.
  */
-Semester semesterCopy(Semester semester);
+SetElement semesterCopy(SetElement semester);
 
 /**
  * semesterCompare - compare between 2 semesters by the semester number
@@ -45,7 +45,7 @@ Semester semesterCopy(Semester semester);
  * -1 - if semester2's semester number is bigger
  * 0 - if both semesters has the same semester number
  */
-int semesterCompare(Semester semester1, Semester semester2);
+int semesterCompare(SetElement semester1, SetElement semester2);
 
 /**
  * getSemesterFromSet - return the semester pointer of the semester with given semester from given set.
@@ -208,6 +208,6 @@ SemesterResult semesterPrintInfo(Semester semester, FILE* output_channel);
  * @param semester - the semester to destroy
  * if semester is NULL nothing will be done
  */
-void semesterDestroy(Semester semester);
+void semesterDestroy(SetElement semester);
 
 #endif //EX3_SEMESTER_H
