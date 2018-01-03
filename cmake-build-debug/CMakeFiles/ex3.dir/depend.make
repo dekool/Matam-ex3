@@ -14,7 +14,12 @@ CMakeFiles/ex3.dir/grade.c.obj: ../list.h
 CMakeFiles/ex3.dir/grade.c.obj: ../mtm_ex3.h
 CMakeFiles/ex3.dir/grade.c.obj: ../set.h
 
+CMakeFiles/ex3.dir/main.c.obj: ../course_manager.h
+CMakeFiles/ex3.dir/main.c.obj: ../list.h
 CMakeFiles/ex3.dir/main.c.obj: ../main.c
+CMakeFiles/ex3.dir/main.c.obj: ../mtm_ex3.h
+CMakeFiles/ex3.dir/main.c.obj: ../set.h
+CMakeFiles/ex3.dir/main.c.obj: ../student.h
 
 CMakeFiles/ex3.dir/semester.c.obj: ../grade.h
 CMakeFiles/ex3.dir/semester.c.obj: ../list.h

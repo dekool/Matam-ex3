@@ -49,6 +49,20 @@ stdbool.h
 C:/Users/Dekel/Documents/mtm/ex3/main.c
 stdio.h
 -
+stdbool.h
+-
+string.h
+-
+stdlib.h
+-
+assert.h
+-
+list.h
+C:/Users/Dekel/Documents/mtm/ex3/list.h
+mtm_ex3.h
+C:/Users/Dekel/Documents/mtm/ex3/mtm_ex3.h
+course_manager.h
+C:/Users/Dekel/Documents/mtm/ex3/course_manager.h
 
 C:/Users/Dekel/Documents/mtm/ex3/mtm_ex3.h
 stdio.h

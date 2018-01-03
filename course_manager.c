@@ -57,7 +57,6 @@ CourseManagerResult addStudent(CourseManager course_manager, int id, char* first
         return COURSE_MANAGER_INVALID_PARAMETERS;
     }
     SetResult add_result = setAdd(course_manager->students, (SetElement)student);
-    printf("add result: %d", add_result);
     studentDestroy(student);
     switch(add_result) {
         case SET_ITEM_ALREADY_EXISTS:
