@@ -31,7 +31,7 @@ typedef struct student_t {
 */
 StudentResult studentCreate(int id, char* firstName, char* lastName, Student *student) {
     if (firstName == NULL || lastName == NULL) return STUDENT_NULL_ARGUMENT;
-    if (id >= 1000000000 || id < 0) return STUDENT_INVALID_PARAMETER;
+    if (id >= 1000000000 || id <= 0) return STUDENT_INVALID_PARAMETER;
 
     Student new_student = (Student) malloc(sizeof(*new_student));
     if (new_student == NULL) return STUDENT_OUT_OF_MEMORY;
@@ -339,7 +339,7 @@ void removeStudentFromFriendsSet(Set set, Student student) {
  * in the given semester.
  * @param student - the student to add the grade to
  * @param semester_number - the semester number the grade is attached to (must be positive number)
- * @param course_id - the id of the course the grade is attached to (must be positive number lower than 1000000000)
+ * @param course_id - the id of the course the grade is attached to (must be positive number lower than 1000000)
  * @param points - the number of points for the course the grade is attached to
  * (must be in the format of X or X.0 or X.5, while X is an array of digits)
  * @param grade - the grade to add to the grade sheet (must be number between 0 and 100)
@@ -403,6 +403,9 @@ StudentResult studentRemoveGrade(Student student, int semester, int course_id) {
     SemesterResult remove_result = semesterRemoveGrade(grade_semester, course_id);
     if (remove_result == SEMESTER_COURSE_DOES_NOT_EXIST) return STUDENT_COURSE_DOES_NOT_EXIST;
     if (remove_result == SEMESTER_OUT_OF_MEMORY) return STUDENT_OUT_OF_MEMORY;
+    if (remove_result == SEMESTER_GOT_EMPTY) {
+        setRemove(student->semesters, grade_semester);
+    }
     return STUDENT_OK;
 }
 
@@ -429,8 +432,8 @@ StudentResult studentUpdateGrade(Student student, int course_id, int new_grade) 
     }
     if (max_semester == NULL) return STUDENT_COURSE_DOES_NOT_EXIST;
     SemesterResult update_result = semesterUpdateGrade(max_semester, course_id, new_grade);
-    if (update_result == SEMESTER_INVALID_PARAMETER) return STUDENT_INVALID_PARAMETER;
     if (update_result == SEMESTER_COURSE_DOES_NOT_EXIST) return STUDENT_COURSE_DOES_NOT_EXIST;
+    if (update_result == SEMESTER_INVALID_PARAMETER) return STUDENT_INVALID_PARAMETER;
     return STUDENT_OK;
 }
 
@@ -694,7 +697,7 @@ static void insertGradeIntoArrayIfLower(Grade** array, int length, Grade *grade)
                 if (getSemester(*grade) < getSemester(*array[i])) {
                     smaller = true;
                 } else if (getSemester(*grade) == getSemester(*array[i])) {
-                    if (getCoursePointsX2(*grade) < getCoursePointsX2(*array[i])) {
+                    if (getCourseId(*grade) < getCourseId(*array[i])) {
                         smaller = true;
                     }
                 }

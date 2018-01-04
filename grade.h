@@ -17,7 +17,7 @@ typedef enum GradeResult_t {
 
 /**
  * gradeCreate - creates new grade
- * @param course_id - the id of the course the grade is attached to. must be positive number lower than 1000000000.
+ * @param course_id - the id of the course the grade is attached to. must be positive number lower than 1000000.
  * @param points - the number of points that the course worth. must be in the format of:
  * X or X.0 or X.5
  * while X is not empty and contains only digits
@@ -27,7 +27,7 @@ typedef enum GradeResult_t {
  * @return
  * GRADE_NULL_ARGUMENT - if points is NULL
  * GRADE_OUT_OF_MEMORY - if there was a memory error
- * GRADE_INVALID_PARAMETER - if one of the parameters in not valid (course_id is negative or higher than 1000000000, 
+ * GRADE_INVALID_PARAMETER - if one of the parameters in not valid (course_id is negative or higher than 1000000,
  * points is not in the valid format, or grade_number is not integer between 0 and 100)
  * GRADE_OK - otherwise
  */

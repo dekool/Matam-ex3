@@ -232,7 +232,7 @@ CourseManagerResult unFriend(CourseManager course_manager, int otherId) {
  * attacked to the given course in the given semester.
  * @param course_manager - the course manager that the student is logged to
  * @param semester - the semester the grade is attached to (must be positive number)
- * @param course_id - the id of the course the grade is attached to (must be positive number lower than 1000000000)
+ * @param course_id - the id of the course the grade is attached to (must be positive number lower than 1000000)
  * @param points - the number of points for the course the grade is attached to
  * (must be in the format of X or X.0 or X.5, while X is an array of digits)
  * @param grade - the grade to add to the grade sheet (must be number between 0 and 100)
@@ -284,9 +284,9 @@ CourseManagerResult removeGrade(CourseManager course_manager, int semester, int 
 CourseManagerResult updateGrade(CourseManager course_manager, int course_id, int new_grade) {
     if (course_manager == NULL || course_manager->students == NULL) return COURSE_MANAGER_OUT_OF_MEMORY;
     if (course_manager->logged_student == NULL) return COURSE_MANAGER_NOT_LOGGED_IN;
-    if (new_grade < 0 || new_grade > 100) return COURSE_MANAGER_INVALID_PARAMETERS;
     StudentResult update_result = studentUpdateGrade(course_manager->logged_student, course_id, new_grade);
     if (update_result == STUDENT_COURSE_DOES_NOT_EXIST) return COURSE_MANAGER_COURSE_DOES_NOT_EXIST;
+    if (update_result == STUDENT_INVALID_PARAMETER) return COURSE_MANAGER_INVALID_PARAMETERS;
     return COURSE_MANAGER_OK;
 }
 

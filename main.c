@@ -143,7 +143,9 @@ static ParserResult getInputOutputStreams(int argc, char** argv, file* input_str
 
     *output_stream = getOutputStream(argc, argv);
     if(*output_stream == NULL) {
-        fclose(*input_stream);
+        if(*input_stream != stdin) {
+            fclose(*input_stream);
+        }
         mtmPrintErrorMessage(ERROR_CHANNEL, MTM_CANNOT_OPEN_FILE);
         return PARSER_FAILED;
     }
@@ -262,12 +264,14 @@ static List splitString(char* str) {
             str++;
         }
         str += strlen(current_word);
+        free(current_word);
         current_word = getFirstWord(str);
         if(current_word == NULL) {
             listDestroy(tokens);
             return NULL;
         }
     }
+    free(current_word);
     return tokens;
 }
 
@@ -555,8 +559,8 @@ static bool handleStudentCommand(CourseManager manager, List command_parts, file
         return handleStudentUnfriendCommand(manager, command_parts, output_stream);
     } else {    // invalid subcommand, it is assumed that we don't get here
         assert(false);
-        return false;
     }
+    return false;   // should never get here
 }
 // ---------------------- Student Command Handlers - End -----------------------------------------------
 
@@ -678,8 +682,8 @@ static bool handleGradeSheetCommand(CourseManager manager, List command_parts, f
         return handleGradeSheetUpdateCommand(manager, command_parts, output_stream);
     } else {    // invalid subcommand, it is assumed that we don't get here
         assert(false);
-        return false;
     }
+    return false;   // should never get here
 }
 // ---------------------- Grade Sheet Command Handlers - End -----------------------------------------
 
@@ -880,8 +884,8 @@ static bool handleReportCommand(CourseManager manager, List command_parts, file 
         return handleReportFacultyRequestCommand(manager, command_parts, output_stream);
     } else {    // invalid subcommand, it is assumed that we don't get here
         assert(false);
-        return false;
     }
+    return false;   // should never get here
 }
 // ---------------------- Report Command Handlers - End --------------------------------------------
 
@@ -910,8 +914,8 @@ static bool handleCommand(CourseManager manager, List command_parts, file output
         return handleReportCommand(manager, command_parts, output_stream);
     } else {    // illegal command, we can assume that it doesn't get here
         assert(false);
-        return false;
     }
+    return false;   // should never get here
 }
 
 /**
@@ -935,13 +939,18 @@ static void executeCommands(file input_stream, file output_stream) {
         if(command_parts == NULL) {
             printError(MTM_OUT_OF_MEMORY);
             listDestroy(command_parts);
+            destroyCourseManager(manager);
             return;
         } else {
             bool success = handleCommand(manager, command_parts, output_stream);
             listDestroy(command_parts);
-            if(!success) return;
+            if(!success) {
+                destroyCourseManager(manager);
+                return;
+            }
         }
     }
+    destroyCourseManager(manager);
 }
 
 int main(int argc, char** argv) {
@@ -951,8 +960,12 @@ int main(int argc, char** argv) {
 
     executeCommands(input_stream, output_stream);
 
-    fclose(input_stream);
-    fclose(output_stream);
+    if(input_stream != stdin) {
+        fclose(input_stream);
+    }
+    if(output_stream != stdout) {
+        fclose(output_stream);
+    }
 
     return 0;
 }

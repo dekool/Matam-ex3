@@ -172,7 +172,7 @@ void removeStudentFromFriendsSet(Set set, Student student);
  * in the given semester.
  * @param student - the student to add the grade to
  * @param semester - the semester the grade is attached to (must be positive number)
- * @param course_id - the id of the course the grade is attached to (must be positive number lower than 1000000000)
+ * @param course_id - the id of the course the grade is attached to (must be positive number lower than 1000000)
  * @param points - the number of points for the course the grade is attached to
  * (must be in the format of X or X.0 or X.5, while X is an array of digits)
  * @param grade - the grade to add to the grade sheet (must be number between 0 and 100)

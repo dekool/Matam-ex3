@@ -17,7 +17,7 @@ typedef struct semester_t {
  * SEMESTER_OK - otherwise
  */
 SemesterResult semesterCreate(int semester_number, Semester *semester) {
-    if (semester_number < 0) return SEMESTER_INVALID_PARAMETER;
+    if (semester_number <= 0) return SEMESTER_INVALID_PARAMETER;
 
     Semester new_semester = (Semester) malloc(sizeof(*new_semester));
     if (new_semester == NULL) return SEMESTER_OUT_OF_MEMORY;
@@ -88,7 +88,7 @@ Semester getSemesterFromSet(Set set, int semester_number) {
 /**
  * semesterAddGrade - adds the given grade as last grade of the given semester
  * @param semester - the semester to add the grade to
- * @param course_id - the id of the course is grade is attached to (must be positive number lower than 1000000000)
+ * @param course_id - the id of the course is grade is attached to (must be positive number lower than 1000000)
  * @param points - the number of points that the course worth. must be in the format of:
  * X or X.0 or X.5
  * while X is not empty and contains only digits
@@ -219,6 +219,7 @@ SemesterResult semesterRemoveGrade(Semester semester, int course_id) {
         }
         currentGrade = (Grade)listGetNext(semester->grades);
     }
+    if (listGetSize(semester->grades) == 0) return SEMESTER_GOT_EMPTY;
     return SEMESTER_OK;
 }
 

@@ -11,6 +11,7 @@ typedef struct semester_t *Semester;
 /** Type used for returning error codes from functions */
 typedef enum SemesterResult_t {
     SEMESTER_OK,
+    SEMESTER_GOT_EMPTY,
     SEMESTER_NULL_ARGUMENT,
     SEMESTER_OUT_OF_MEMORY,
     SEMESTER_INVALID_PARAMETER,
@@ -60,7 +61,7 @@ Semester getSemesterFromSet(Set set, int semester);
 /**
  * semesterAddGrade - adds the given grade as last grade of the given semester
  * @param semester - the semester to add the grade to
- * @param course_id - the id of the course is grade is attached to (must be positive number lower than 1000000000)
+ * @param course_id - the id of the course is grade is attached to (must be positive number lower than 1000000)
  * @param points - the number of points that the course worth. must be in the format of:
  * X or X.0 or X.5
  * while X is not empty and contains only digits
