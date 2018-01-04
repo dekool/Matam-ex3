@@ -570,7 +570,7 @@ static StudentResult studentPrintSummary(Student student, FILE* output_channel) 
     }
     Set courses;
     StudentResult set_create_result = studentGetAllCoursesSet(student, &courses);
-    if (set_create_result == SET_OUT_OF_MEMORY) return STUDENT_OUT_OF_MEMORY;
+    if (set_create_result == STUDENT_OUT_OF_MEMORY) return STUDENT_OUT_OF_MEMORY;
     SET_FOREACH(int*, current_course_id, courses) {
         addEffectiveSheetCourseGradeAndPointsX2(student, *current_course_id, &total_effective_course_points_x2,
                                                       &sum_effective_course_grades);
@@ -594,7 +594,7 @@ static StudentResult studentPrintCleanSummary(Student student, FILE* output_chan
     int total_effective_course_points_x2 = 0, sum_effective_course_grades = 0;
     Set courses;
     StudentResult set_create_result = studentGetAllCoursesSet(student, &courses);
-    if (set_create_result == SET_OUT_OF_MEMORY) return STUDENT_OUT_OF_MEMORY;
+    if (set_create_result == STUDENT_OUT_OF_MEMORY) return STUDENT_OUT_OF_MEMORY;
     SET_FOREACH(int*, current_course_id, courses) {
         addEffectiveSheetCourseGradeAndPointsX2(student, *current_course_id, &total_effective_course_points_x2,
                                                 &sum_effective_course_grades);
@@ -618,7 +618,7 @@ StudentResult studentPrintFullReport(Student student, FILE* output_channel) {
     SET_FOREACH(Semester, current_semester, student->semesters) {
         semesterPrintAllSemesterGrades(current_semester, output_channel);
         SemesterResult print_result = semesterPrintInfo(current_semester, output_channel);
-        if (print_result == SEMESTER_OUT_OF_MEMORY || print_result == STUDENT_NULL_ARGUMENT) {
+        if (print_result == SEMESTER_OUT_OF_MEMORY || print_result == SEMESTER_NULL_ARGUMENT) {
             return STUDENT_OUT_OF_MEMORY;
         }
     }
@@ -642,7 +642,7 @@ StudentResult studentPrintCleanReport(Student student, FILE* output_channel) {
 
     Set courses;
     StudentResult set_create_result = studentGetAllCoursesSet(student, &courses);
-    if (set_create_result == SET_OUT_OF_MEMORY) return STUDENT_OUT_OF_MEMORY;
+    if (set_create_result == STUDENT_OUT_OF_MEMORY) return STUDENT_OUT_OF_MEMORY;
     SET_FOREACH(int*, current_course_id, courses) {
         printEffectiveSheetCourseGradeInfo(student, *current_course_id, output_channel);
     }
@@ -799,7 +799,7 @@ StudentResult studentPrintBestOrWorstGrades(Student student, int amount, bool be
     }
     Set courses;
     StudentResult set_create_result = studentGetAllCoursesSet(student, &courses);
-    if (set_create_result == SET_OUT_OF_MEMORY) return STUDENT_OUT_OF_MEMORY;
+    if (set_create_result == STUDENT_OUT_OF_MEMORY) return STUDENT_OUT_OF_MEMORY;
     SET_FOREACH(int*, current_course_id, courses) {
         insertCourseGradeIntoArrayIfFit(student, *current_course_id, best_grades, amount, best);
     }

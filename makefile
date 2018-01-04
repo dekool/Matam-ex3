@@ -1,6 +1,6 @@
 CC = gcc
 OBJS = course_manager.o student.o semester.o grade.o main.o
-TEST_OBJS = course_manager_test.o student_test.o semester_test.o grade_test.o
+TEST_OBJS = course_manager_test.o student_test.o semester_test.o grade_test.o list_mtm_test.o list_mtm.o
 EXEC = mtm_cm
 CFLAGS = -std=c99 -Wall -pedantic-errors -Werror -DNDEBUG
 
@@ -12,6 +12,7 @@ tests : $(TEST_OBJS) $(OBJS)
 	$(CC) $(CFLAGS) student.o semester.o grade.o grade_test.o -o grade_test -L. -lmtm
 	$(CC) $(CFLAGS) student.o semester.o grade.o semester_test.o -o semester_test -L. -lmtm
 	$(CC) $(CFLAGS) student.o semester.o grade.o student_test.o -o student_test -L. -lmtm
+	$(CC) $(CFLAGS) list_mtm.o list_mtm_test.o -o list_mtm_test
 	
 course_manager.o: course_manager.c course_manager.h list.h set.h \
  mtm_ex3.h student.h libmtm.a
@@ -33,6 +34,10 @@ semester_test.o: semester_test.c test_utilities.h semester.h set.h \
 student_test.o: student_test.c test_utilities.h student.h set.h \
  mtm_ex3.h libmtm.a
 	$(CC) $(CFLAGS) -c ./tests/student_test.c -o student_test.o -L. -lmtm
+list_mtm.o: ./list_mtm/list_mtm.c ./list_mtm/list_mtm.h
+	$(CC) $(CFLAGS) -c ./list_mtm/list_mtm.c -o list_mtm.o
+list_mtm_test.o: ./tests/list_mtm_test.c  ./list_mtm/list_mtm.c ./list_mtm/list_mtm.h ./tests/test_utilities.h
+	$(CC) $(CFLAGS) -c ./tests/list_mtm_test.c -o list_mtm_test.o
 
 	
 clean:

@@ -3,7 +3,7 @@
 #include <string.h>
 
 #include "test_utilities.h"
-#include "../list/list_mtm.h"
+#include "../list_mtm/list_mtm.h"
 
 /**
  * Utility functions used in the tests
@@ -18,7 +18,7 @@ static void freeString(ListElement str) {
 }
 
 /**
- * List of tests
+ * List of tests for List
  */
 static bool testListCreate() {
     ASSERT_TEST(listCreate(NULL, NULL) == NULL);
@@ -437,7 +437,7 @@ static bool testListClear() {
     return true;
 }
 
-int listTest() {
+int main() {
     RUN_TEST(testListCreate);
     RUN_TEST(testListCopy);
     RUN_TEST(testListGetSize);
