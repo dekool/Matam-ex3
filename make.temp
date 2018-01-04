@@ -1,0 +1,7 @@
+course_manager.o: course_manager.c course_manager.h list.h set.h \
+ mtm_ex3.h student.h
+grade.o: grade.c grade.h list.h set.h mtm_ex3.h
+main.o: main.c list.h mtm_ex3.h course_manager.h set.h student.h
+semester.o: semester.c semester.h set.h list.h mtm_ex3.h grade.h \
+ student.h
+student.o: student.c student.h set.h mtm_ex3.h semester.h list.h grade.h

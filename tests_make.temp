@@ -1,0 +1,8 @@
+course_manager_test.o: course_manager_test.c test_utilities.h \
+ ../course_manager.h ../list.h ../set.h ../mtm_ex3.h ../student.h
+grade_test.o: grade_test.c test_utilities.h ../grade.h ../list.h ../set.h \
+ ../mtm_ex3.h
+semester_test.o: semester_test.c test_utilities.h ../semester.h ../set.h \
+ ../list.h ../mtm_ex3.h ../grade.h
+student_test.o: student_test.c test_utilities.h ../student.h ../set.h \
+ ../mtm_ex3.h

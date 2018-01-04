@@ -324,7 +324,7 @@ static bool testSemesterPrintInfo() {
 }
 
 
-int runAllSemesterTests() {
+int main() {
     RUN_TEST(testSemesterCreate);
     RUN_TEST(testSemesterAddGrade);
     RUN_TEST(testSemesterCopy);

@@ -243,7 +243,7 @@ static bool testGradePrintInfo() {
 }
 
 
-int runGradeTests() {
+int main() {
     RUN_TEST(testGradeCreate);
     RUN_TEST(testGradeCopy);
     RUN_TEST(testGradeCompare);

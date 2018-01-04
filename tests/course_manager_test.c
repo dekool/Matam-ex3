@@ -772,7 +772,7 @@ static bool testSendFacultyReqeust() {
 }
 
 
-int runCourseManagerTests() {
+int main() {
     RUN_TEST(testCourseManagerCreate);
     RUN_TEST(testAddStudent);
     RUN_TEST(testRemoveStudent);

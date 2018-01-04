@@ -592,7 +592,7 @@ static bool testStudentPrintName() {
     return true;
 }
 
-int runAllStudentTests() {
+int main() {
     RUN_TEST(testStudentCreate);
     RUN_TEST(testStudentCopy);
     RUN_TEST(testStudentCompare);
